@@ -1,4 +1,4 @@
-import { Address, HexString } from "web3";
+import { Address, HexString, Numbers } from "web3";
 
 export interface NativeCurrencyData {
   name: string;
@@ -7,7 +7,7 @@ export interface NativeCurrencyData {
 }
 
 export interface AddEthereumChainRequest {
-  chainId: HexString;
+  chainId: Numbers; // HexString;
   blockExplorerUrls?: string[];
   chainName?: string;
   iconUrls?: string[];

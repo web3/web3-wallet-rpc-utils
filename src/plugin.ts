@@ -7,15 +7,14 @@ import {
   UpdateEthereumChainRequest,
 } from "./types";
 
-// is this in use?
 type WalletRpcApi = {
-  addEthereumChain: () => Promise<null>;
-  updateEthereumChain: () => Promise<boolean>;
-  switchEthereumChain: () => Promise<null>;
-  getOwnedAssets: () => string;
-  watchAsset: () => string;
-  requestPermissions: () => string;
-  getPermissions: () => string;
+  wallet_addEthereumChain: (param: AddEthereumChainRequest) => null;
+  wallet_updateEthereumChain: (param: UpdateEthereumChainRequest) => null;
+  //   switchEthereumChain: () => Promise<null>;
+  //   getOwnedAssets: () => string;
+  //   watchAsset: () => string;
+  //   requestPermissions: () => string;
+  //   getPermissions: () => string;
 };
 
 export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
@@ -30,7 +29,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
 
     return this.requestManager.send({
       method: "wallet_addEthereumChain",
-      params: [param], // encode?
+      params: [param],
     });
   }
 
@@ -41,7 +40,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
 
     return this.requestManager.send({
       method: "wallet_updateEthereumChain",
-      params: [param], // encode?
+      params: [param],
     });
   }
 
