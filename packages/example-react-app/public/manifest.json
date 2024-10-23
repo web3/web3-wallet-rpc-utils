@@ -1,6 +1,6 @@
 {
-  "short_name": "Web3.js + React dApp",
-  "name": "Web3.js + React Demonstration dApp",
+  "short_name": "Web3.js Wallet RPC Demo",
+  "name": "Web3.js Wallet RPC Methods Demonstration dApp",
   "icons": [
     {
       "src": "favicon.ico",

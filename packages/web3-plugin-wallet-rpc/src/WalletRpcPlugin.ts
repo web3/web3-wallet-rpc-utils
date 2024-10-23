@@ -86,7 +86,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    *
    * See [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326) for more details.
    *
-   * @param param - Chain ID of the chain to switch to
+   * @param chainId - Chain ID of the chain to switch to
    * @returns a Promise that resolves if the request is successful
    */
   public async switchEthereumChain(chainId: Numbers): Promise<void> {
