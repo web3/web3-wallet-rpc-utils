@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
-import { AddEthereumChainRequest } from 'web3-plugin-wallet-rpc';
+import type { AddEthereumChainRequest } from 'web3-plugin-wallet-rpc';
+
 import { Web3Context } from '../web3/Web3Context';
 
 const chains: Record<string, AddEthereumChainRequest> = {
@@ -56,7 +57,7 @@ function AddChainButton({ chainDetails }: { chainDetails: AddEthereumChainReques
   return (
     <>
       <button type="button" onClick={handleClick}>
-        {`Add new chain: ${chainDetails.chainName} (${chainDetails.chainId})`}
+        {`Add new chain: ${chainDetails.chainName ?? ''} (${chainDetails.chainId})`}
       </button>
       {error && <div>{error.message}</div>}
     </>

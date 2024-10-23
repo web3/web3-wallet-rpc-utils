@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
-import { WatchAssetRequest } from 'web3-plugin-wallet-rpc';
+import type { WatchAssetRequest } from 'web3-plugin-wallet-rpc';
+
 import { Web3Context } from '../web3/Web3Context';
 
 const tokens: Record<string, WatchAssetRequest> = {
@@ -21,7 +22,10 @@ function WatchAssetButton({ asset }: { asset: WatchAssetRequest }) {
       .watchAsset(asset)
       .then((response) => {
         // eslint-disable-next-line no-console
-        console.log(`Successfully added ${asset.options.symbol} with response`, response);
+        console.log(
+          `Successfully added ${asset.options.symbol ?? ''} with response`,
+          response,
+        );
       })
       .catch((e) => {
         // eslint-disable-next-line no-console
@@ -46,7 +50,7 @@ function WatchAssetButton({ asset }: { asset: WatchAssetRequest }) {
 export function WatchAsset() {
   return (
     <div>
-      <h4>Add token to wallet's list</h4>
+      <h4>Add token to wallet&apos;s list</h4>
       <WatchAssetButton asset={tokens.usdc} />
     </div>
   );
