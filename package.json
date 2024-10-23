@@ -1,5 +1,20 @@
 {
+  "name": "web3-plugin-wallet-rpc",
   "private": true,
+  "version": "1.0.0",
+  "description": "Add support for the wallet-related RPC methods",
+  "homepage": "https://github.com/web3/web3-wallet-rpc-utils#readme",
+  "bugs": {
+    "url": "https://github.com/web3/web3-wallet-rpc-utils/issues"
+  },
+  "contributors": [
+    "ChainSafe <info@chainsafe.io>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:web3/web3-wallet-rpc-utils.git"
+  },
   "workspaces": [
     "packages/example-react-app",
     "packages/web3-plugin-wallet-rpc"

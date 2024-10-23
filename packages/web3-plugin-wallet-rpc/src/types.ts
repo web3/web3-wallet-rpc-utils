@@ -1,4 +1,4 @@
-import { Address, Numbers } from "web3";
+import type { Address, Numbers } from "web3";
 
 export type NativeCurrencyData = {
   name: string;

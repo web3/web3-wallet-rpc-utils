@@ -1,4 +1,5 @@
 import { Web3 } from "web3";
+
 import { WalletRpcPlugin } from "../src";
 
 describe("WalletRpcPlugin", () => {
@@ -26,7 +27,7 @@ describe("WalletRpcPlugin", () => {
 
     it("should throw when called with invalid address", async () => {
       await expect(
-        web3.walletRpc.getOwnedAssets({ address: "" })
+        web3.walletRpc.getOwnedAssets({ address: "" }),
       ).rejects.toThrow("validator found 1 error");
     });
   });

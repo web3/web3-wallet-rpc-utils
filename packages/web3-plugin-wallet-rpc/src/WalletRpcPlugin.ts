@@ -1,5 +1,6 @@
 import { Web3PluginBase, utils, validator } from "web3";
-import {
+
+import type {
   AddEthereumChainRequest,
   GetOwnedAssetsRequest,
   GetOwnedAssetsResult,
@@ -67,7 +68,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    * @returns a Promise that resolves if the request is successful
    */
   public async updateEthereumChain(
-    param: UpdateEthereumChainRequest
+    param: UpdateEthereumChainRequest,
   ): Promise<void> {
     return this.requestManager.send({
       method: "wallet_updateEthereumChain",
@@ -89,7 +90,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    * @returns a Promise that resolves if the request is successful
    */
   public async switchEthereumChain(
-    param: SwitchEthereumChainRequest
+    param: SwitchEthereumChainRequest,
   ): Promise<void> {
     return this.requestManager.send({
       method: "wallet_switchEthereumChain",
@@ -111,7 +112,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    * @returns a Promise that resolves to a list of owned assets, see {@link GetOwnedAssetsResult}
    */
   public async getOwnedAssets(
-    param: GetOwnedAssetsRequest
+    param: GetOwnedAssetsRequest,
   ): Promise<GetOwnedAssetsResult> {
     validator.validator.validate(["address"], [param.address]);
 
