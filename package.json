@@ -21,10 +21,11 @@
   ],
   "packageManager": "yarn@1.22.15",
   "scripts": {
-    "lint": "cd packages/web3-plugin-wallet-rpc && yarn lint",
     "build": "cd packages/web3-plugin-wallet-rpc && yarn build",
     "build:docs": "cd packages/web3-plugin-wallet-rpc && yarn build:docs",
     "test": "cd packages/web3-plugin-wallet-rpc && yarn test",
+    "lint": "yarn lint:plugin && yarn lint:example",
+    "lint:plugin": "cd packages/web3-plugin-wallet-rpc && yarn lint",
     "lint:example": "cd packages/example-react-app && yarn lint",
     "start:example": "cd packages/example-react-app && yarn start"
   }

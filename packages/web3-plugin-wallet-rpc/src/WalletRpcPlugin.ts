@@ -1,5 +1,5 @@
-import type { Numbers } from "web3";
-import { Web3PluginBase, utils, validator } from "web3";
+import type { Numbers } from 'web3';
+import { Web3PluginBase, utils, validator } from 'web3';
 
 import type {
   AddEthereumChainRequest,
@@ -9,13 +9,13 @@ import type {
   PermissionRequest,
   UpdateEthereumChainRequest,
   WatchAssetRequest,
-} from "./types";
-import { parseToGetOwnedAssetsResult } from "./utils";
+} from './types';
+import { parseToGetOwnedAssetsResult } from './utils';
 
 type WalletRpcApi = {
   wallet_addEthereumChain: (param: AddEthereumChainRequest) => void;
   wallet_updateEthereumChain: (param: UpdateEthereumChainRequest) => void;
-  wallet_switchEthereumChain: (chainId: Numbers) => void;
+  wallet_switchEthereumChain: (chainId: Numbers) => null;
   wallet_getOwnedAssets: (param: GetOwnedAssetsRequest) => OwnedAsset[];
   wallet_watchAsset: (param: WatchAssetRequest) => boolean;
   wallet_requestPermissions: (param: PermissionRequest) => Permission[];
@@ -38,7 +38,7 @@ type WalletRpcApi = {
  * ```
  */
 export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
-  public pluginNamespace = "walletRpc";
+  public pluginNamespace = 'walletRpc';
 
   public constructor() {
     super();
@@ -68,7 +68,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    */
   public async addEthereumChain(param: AddEthereumChainRequest): Promise<void> {
     return this.requestManager.send({
-      method: "wallet_addEthereumChain",
+      method: 'wallet_addEthereumChain',
       params: [
         {
           ...param,
@@ -87,11 +87,9 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    * @returns A Promise that resolves if the request is successful.
    * @experimental
    */
-  public async updateEthereumChain(
-    param: UpdateEthereumChainRequest,
-  ): Promise<void> {
+  public async updateEthereumChain(param: UpdateEthereumChainRequest): Promise<null> {
     return this.requestManager.send({
-      method: "wallet_updateEthereumChain",
+      method: 'wallet_updateEthereumChain',
       params: [
         {
           ...param,
@@ -103,6 +101,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
 
   /**
    * Switch the wallet's currently active chain.
+   *
    * If the specified chain does not exist in the wallet, an error will be thrown.
    * To prevent errors, ensure the chain has been added first or handle the call within a try/catch block.
    *
@@ -116,7 +115,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    */
   public async switchEthereumChain(chainId: Numbers): Promise<void> {
     return this.requestManager.send({
-      method: "wallet_switchEthereumChain",
+      method: 'wallet_switchEthereumChain',
       params: [
         {
           chainId: utils.toHex(chainId),
@@ -134,10 +133,8 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    * @returns A Promise that resolves to a list of owned assets.
    * @experimental
    */
-  public async getOwnedAssets(
-    param: GetOwnedAssetsRequest,
-  ): Promise<OwnedAsset[]> {
-    validator.validator.validate(["address"], [param.address]);
+  public async getOwnedAssets(param: GetOwnedAssetsRequest): Promise<OwnedAsset[]> {
+    validator.validator.validate(['address'], [param.address]);
 
     const trueParam = { ...param };
     if (trueParam.options?.chainId) {
@@ -145,7 +142,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
     }
 
     const result = await this.requestManager.send({
-      method: "wallet_getOwnedAssets",
+      method: 'wallet_getOwnedAssets',
       params: [trueParam],
     });
 
@@ -171,7 +168,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    */
   public async watchAsset(param: WatchAssetRequest): Promise<boolean> {
     return this.requestManager.send({
-      method: "wallet_watchAsset",
+      method: 'wallet_watchAsset',
       params: [param],
     });
   }
@@ -189,11 +186,9 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    *   eth_accounts: {}
    * });
    */
-  public async requestPermissions(
-    param: PermissionRequest,
-  ): Promise<Permission[]> {
+  public async requestPermissions(param: PermissionRequest): Promise<Permission[]> {
     return this.requestManager.send({
-      method: "wallet_requestPermissions",
+      method: 'wallet_requestPermissions',
       params: [param],
     });
   }
@@ -210,7 +205,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    */
   public async getPermissions(): Promise<Permission[]> {
     return this.requestManager.send({
-      method: "wallet_getPermissions",
+      method: 'wallet_getPermissions',
       params: [],
     });
   }
@@ -228,13 +223,13 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    */
   public async revokePermissions(param: PermissionRequest): Promise<void> {
     return this.requestManager.send({
-      method: "wallet_revokePermissions",
+      method: 'wallet_revokePermissions',
       params: [param],
     });
   }
 }
 
-declare module "web3" {
+declare module 'web3' {
   interface Web3Context {
     walletRpc: WalletRpcPlugin;
   }

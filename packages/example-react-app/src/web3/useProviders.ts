@@ -1,7 +1,12 @@
-import { useSyncExternalStore } from "react";
-import { providers, Web3 } from "web3";
+import { useSyncExternalStore } from 'react';
+import type {
+  EIP6963ProviderDetail,
+  EIP6963ProviderResponse,
+  EIP6963ProvidersMapUpdateEvent,
+} from 'web3';
+import { Web3, web3ProvidersMapUpdated } from 'web3';
 
-let providerList: providers.EIP6963ProviderDetail[] = [];
+let providerList: EIP6963ProviderDetail[] = [];
 
 /**
  * External store for subscribing to EIP-6963 providers
@@ -10,30 +15,32 @@ let providerList: providers.EIP6963ProviderDetail[] = [];
 const providerStore = {
   getSnapshot: () => providerList,
   subscribe: (callback: () => void) => {
-    function setProviders(response: providers.EIP6963ProviderResponse) {
+    function setProviders(response: EIP6963ProviderResponse): void {
       providerList = [];
-      for (const [, provider] of response) {
+
+      response.forEach((provider) => {
         providerList.push(provider);
-      }
+      });
 
       callback();
     }
 
-    Web3.requestEIP6963Providers().then(setProviders);
+    Web3.requestEIP6963Providers()
+      .then(setProviders)
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error(error);
+      });
 
-    function updateProviders(
-      providerEvent: providers.EIP6963ProvidersMapUpdateEvent,
-    ) {
+    function updateProviders(providerEvent: EIP6963ProvidersMapUpdateEvent) {
       setProviders(providerEvent.detail);
     }
 
     Web3.onNewProviderDiscovered(updateProviders);
 
-    return () =>
-      window.removeEventListener(
-        providers.web3ProvidersMapUpdated as any,
-        updateProviders,
-      );
+    return () => {
+      window.removeEventListener(web3ProvidersMapUpdated as any, updateProviders);
+    };
   },
 };
 

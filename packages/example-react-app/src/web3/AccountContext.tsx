@@ -3,16 +3,17 @@ import {
   type ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useState,
-} from "react";
+} from 'react';
 
-import { type IWeb3Context, Web3Context } from "./Web3Context";
+import { type IWeb3Context, Web3Context } from './Web3Context';
 
-export interface IAccountContext {
+export type IAccountContext = {
   accounts: string[];
   selectedAccount: string | undefined;
   requestAccounts: () => void;
-}
+};
 
 const defaultContext: IAccountContext = {
   accounts: [],
@@ -27,7 +28,7 @@ export const AccountContext = createContext<IAccountContext>(defaultContext);
  * @param children components that may require Web3 account
  * @returns React component that provides a context for managing and interacting with Web3 accounts
  */
-export const AccountProvider = ({ children }: { children: ReactNode }) => {
+export function AccountProvider({ children }: { children: ReactNode }) {
   const web3Context: IWeb3Context = useContext(Web3Context);
 
   const [accounts, setAccounts] = useState<string[]>([]);
@@ -40,10 +41,19 @@ export const AccountProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    web3Context.web3.eth.getAccounts().then(setAccounts);
-    provider.provider.on("accountsChanged", setAccounts);
-    return () =>
-      provider.provider.removeListener("accountsChanged", setAccounts);
+    web3Context.web3.eth
+      .getAccounts()
+      .then(setAccounts)
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error(error);
+      });
+
+    provider.provider.on('accountsChanged', setAccounts);
+
+    return () => {
+      provider.provider.removeListener('accountsChanged', setAccounts);
+    };
   }, [web3Context.currentProvider, web3Context.web3.eth]);
 
   // update selected account
@@ -56,18 +66,25 @@ export const AccountProvider = ({ children }: { children: ReactNode }) => {
   }, [accounts]);
 
   function requestAccounts() {
-    web3Context.web3.eth.requestAccounts().then(setAccounts);
+    web3Context.web3.eth
+      .requestAccounts()
+      .then(setAccounts)
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error(error);
+      });
   }
 
-  const accountContext: IAccountContext = {
-    accounts,
-    selectedAccount,
-    requestAccounts,
-  };
+  const accountContext: IAccountContext = useMemo(
+    () => ({
+      accounts,
+      selectedAccount,
+      requestAccounts,
+    }),
+    [accounts, selectedAccount, requestAccounts],
+  );
 
   return (
-    <AccountContext.Provider value={accountContext}>
-      {children}
-    </AccountContext.Provider>
+    <AccountContext.Provider value={accountContext}>{children}</AccountContext.Provider>
   );
-};
+}
