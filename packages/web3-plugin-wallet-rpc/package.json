@@ -11,6 +11,7 @@
   "scripts": {
     "lint": "eslint '{src,test}/**/*.ts'",
     "build": "tsc --project tsconfig.build.json",
+    "build:docs": "npx typedoc ./src/index.ts",
     "test": "jest --config=./test/jest.config.js"
   },
   "contributors": [
@@ -30,6 +31,7 @@
     "jest-extended": "^4.0.0",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
+    "typedoc": "^0.26.10",
     "typescript": "5.3.x",
     "web3": "^4.2.2"
   },
