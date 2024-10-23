@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { EIP6963ProviderDetail } from "web3";
+import { useContext } from 'react';
+import { EIP6963ProviderDetail } from 'web3';
 
-import "./ProviderButton.css";
-import { IWeb3Context, Web3Context } from "./web3/Web3Context";
+import './ProviderButton.css';
+import { IWeb3Context, Web3Context } from './web3/Web3Context';
 
 function ProviderButton({ provider }: { provider: EIP6963ProviderDetail }) {
   const web3Context: IWeb3Context = useContext(Web3Context);

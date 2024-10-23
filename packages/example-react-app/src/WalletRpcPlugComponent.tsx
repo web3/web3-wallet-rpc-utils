@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Web3Context } from "./web3/Web3Context";
+import { useContext } from 'react';
+import { Web3Context } from './web3/Web3Context';
 
 function WalletRpcPlugComponent() {
   const { web3 } = useContext(Web3Context);

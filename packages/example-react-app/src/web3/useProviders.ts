@@ -1,5 +1,5 @@
-import { useSyncExternalStore } from "react";
-import { providers, Web3 } from "web3";
+import { useSyncExternalStore } from 'react';
+import { providers, Web3 } from 'web3';
 
 let providerList: providers.EIP6963ProviderDetail[] = [];
 
@@ -21,9 +21,7 @@ const providerStore = {
 
     Web3.requestEIP6963Providers().then(setProviders);
 
-    function updateProviders(
-      providerEvent: providers.EIP6963ProvidersMapUpdateEvent,
-    ) {
+    function updateProviders(providerEvent: providers.EIP6963ProvidersMapUpdateEvent) {
       setProviders(providerEvent.detail);
     }
 

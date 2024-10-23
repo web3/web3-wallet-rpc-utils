@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { AccountContext, type IAccountContext } from "./web3/AccountContext";
-import AccountDetail from "./AccountDetail";
+import { useContext } from 'react';
+import { AccountContext, type IAccountContext } from './web3/AccountContext';
+import AccountDetail from './AccountDetail';
 
 function Accounts() {
   const accountContext: IAccountContext = useContext(AccountContext);
@@ -10,23 +10,16 @@ function Accounts() {
       <h2>Accounts</h2>
       <div>
         {accountContext.selectedAccount === undefined ? (
-          <button onClick={accountContext.requestAccounts}>
-            Connect Accounts
-          </button>
+          <button onClick={accountContext.requestAccounts}>Connect Accounts</button>
         ) : (
           <>
             <h3>Selected Account</h3>
-            <AccountDetail
-              address={accountContext.selectedAccount}
-            ></AccountDetail>
+            <AccountDetail address={accountContext.selectedAccount}></AccountDetail>
             {accountContext.accounts.length > 1 ? (
               <>
                 <h3>Other Accounts</h3>
                 {accountContext.accounts.slice(1).map((account: string) => (
-                  <AccountDetail
-                    address={account}
-                    key={account}
-                  ></AccountDetail>
+                  <AccountDetail address={account} key={account}></AccountDetail>
                 ))}
               </>
             ) : null}

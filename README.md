@@ -35,10 +35,10 @@ pnpm add web3-plugin-wallet-rpc
 ### Register plugin
 
 ```typescript
-import { Web3 } from "web3";
-import { WalletRpcPlugin } from "web3-plugin-wallet-rpc";
+import { Web3 } from 'web3';
+import { WalletRpcPlugin } from 'web3-plugin-wallet-rpc';
 
-const web3 = new Web3("https://eth.llamarpc.com");
+const web3 = new Web3('https://eth.llamarpc.com');
 web3.registerPlugin(new WalletRpcPlugin());
 ```
 
@@ -51,15 +51,15 @@ Invokes the `wallet_addEthereumChain` method as defined in [EIP-3085](https://ei
 ```typescript
 await web3.walletRpc.addEthereumChain({
   chainId: 5000,
-  blockExplorerUrls: ["https://mantlescan.xyz"],
-  chainName: "Mantle",
-  iconUrls: ["https://icons.llamao.fi/icons/chains/rsz_mantle.jpg"],
+  blockExplorerUrls: ['https://mantlescan.xyz'],
+  chainName: 'Mantle',
+  iconUrls: ['https://icons.llamao.fi/icons/chains/rsz_mantle.jpg'],
   nativeCurrency: {
-    name: "Mantle",
-    symbol: "MNT",
+    name: 'Mantle',
+    symbol: 'MNT',
     decimals: 18,
   },
-  rpcUrls: ["https://rpc.mantle.xyz"],
+  rpcUrls: ['https://rpc.mantle.xyz'],
 });
 ```
 
@@ -77,10 +77,10 @@ Invokes the `wallet_watchAsset` method as defined in [EIP-747](https://eips.ethe
 
 ```typescript
 await web3.walletRpc.watchAsset({
-  type: "ERC20",
+  type: 'ERC20',
   options: {
-    address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-    symbol: "USDC",
+    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    symbol: 'USDC',
   },
 });
 ```
@@ -122,14 +122,14 @@ Invokes the `wallet_updateEthereumChain` method as defined in [EIP-2015](https:/
 ```typescript
 await web3.walletRpc.updateEthereumChain({
   chainId: 5000,
-  blockExplorerUrls: ["https://mantlescan.xyz"],
-  chainName: "Mantle",
+  blockExplorerUrls: ['https://mantlescan.xyz'],
+  chainName: 'Mantle',
   nativeCurrency: {
-    name: "Mantle",
-    symbol: "MNT",
+    name: 'Mantle',
+    symbol: 'MNT',
     decimals: 18,
   },
-  rpcUrls: ["https://rpc.mantle.xyz"],
+  rpcUrls: ['https://rpc.mantle.xyz'],
 });
 ```
 
@@ -139,7 +139,7 @@ Invokes the `wallet_getOwnedAssets` method as defined in [EIP-2256](https://eips
 
 ```typescript
 const ownedAssets = await web3.walletRpc.getOwnedAssets({
-  address: "0xa5653e88D9c352387deDdC79bcf99f0ada62e9c6",
+  address: '0xa5653e88D9c352387deDdC79bcf99f0ada62e9c6',
 });
 ```
 
