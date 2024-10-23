@@ -3,18 +3,13 @@ import { WalletRpcPlugin } from "../src";
 
 describe("WalletRpcPlugin", () => {
   describe("wallet_getOwnedAssets", () => {
-    let requestManagerSendSpy: jest.Mock;
-    let web3: Web3;
+    const web3 = new Web3("http://127.0.0.1:8545");
+    web3.registerPlugin(new WalletRpcPlugin());
 
-    beforeAll(() => {
-      web3 = new Web3("http://127.0.0.1:8545");
-      web3.registerPlugin(new WalletRpcPlugin());
+    const requestManagerSendSpy = jest.fn();
+    web3.requestManager.send = requestManagerSendSpy;
 
-      requestManagerSendSpy = jest.fn();
-      web3.requestManager.send = requestManagerSendSpy;
-    });
-
-    afterAll(() => {
+    afterEach(() => {
       requestManagerSendSpy.mockClear();
     });
 

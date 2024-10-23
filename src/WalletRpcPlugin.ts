@@ -5,13 +5,16 @@ import {
   GetOwnedAssetsResult,
   SwitchEthereumChainRequest,
   UpdateEthereumChainRequest,
+  WatchAssetRequest,
 } from "./types";
+import { parseToGetOwnedAssetsResult } from "./utils";
 
 type WalletRpcApi = {
   wallet_addEthereumChain: (param: AddEthereumChainRequest) => void;
   wallet_updateEthereumChain: (param: UpdateEthereumChainRequest) => void;
   wallet_switchEthereumChain: (param: SwitchEthereumChainRequest) => void;
   wallet_getOwnedAssets: (param: GetOwnedAssetsRequest) => GetOwnedAssetsResult;
+  wallet_watchAsset: (param: WatchAssetRequest) => boolean;
 };
 
 /**
@@ -112,10 +115,30 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
   ): Promise<GetOwnedAssetsResult> {
     validator.validator.validate(["address"], [param.address]);
 
-    // TODO: transform optional chainId to hex
+    const trueParam = { ...param };
+    if (trueParam.options?.chainId) {
+      trueParam.options.chainId = utils.toHex(trueParam.options.chainId);
+    }
 
-    return this.requestManager.send({
+    const result = await this.requestManager.send({
       method: "wallet_getOwnedAssets",
+      params: [trueParam],
+    });
+
+    return parseToGetOwnedAssetsResult(result);
+  }
+
+  /**
+   * Add an asset to the user's wallet.
+   *
+   * See [EIP-747](https://eips.ethereum.org/EIPS/eip-747) for more details.
+   *
+   * @param param - See {@link WatchAssetRequest}
+   * @returns a Promise that resolves if the request is successful
+   */
+  public async watchAsset(param: WatchAssetRequest): Promise<boolean> {
+    return this.requestManager.send({
+      method: "wallet_watchAsset",
       params: [param],
     });
   }
