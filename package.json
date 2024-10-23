@@ -23,6 +23,7 @@
   "scripts": {
     "lint": "cd packages/web3-plugin-wallet-rpc && yarn lint",
     "build": "cd packages/web3-plugin-wallet-rpc && yarn build",
-    "test": "cd packages/web3-plugin-wallet-rpc && yarn test"
+    "test": "cd packages/web3-plugin-wallet-rpc && yarn test",
+    "start": "cd packages/example-react-app && yarn start"
   }
 }
