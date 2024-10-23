@@ -26,5 +26,38 @@ describe("WalletRpcPlugin", () => {
         params: [{ chainId: "0x1388" }],
       });
     });
+
+    it("should return correct result", async () => {
+      const result = await web3.walletRpc.addEthereumChain({ chainId: 5000 });
+
+      expect(result).toBeUndefined();
+    });
+
+    it("should pass all possible fields as a param", async () => {
+      const request = {
+        chainId: 5000,
+        blockExplorerUrls: ["https://mantlescan.xyz"],
+        chainName: "Mantle",
+        iconUrls: ["https://icons.llamao.fi/icons/chains/rsz_mantle.jpg"],
+        nativeCurrency: {
+          name: "Mantle",
+          symbol: "MNT",
+          decimals: 18,
+        },
+        rpcUrls: ["https://rpc.mantle.xyz"],
+      };
+
+      await web3.walletRpc.addEthereumChain(request);
+
+      expect(requestManagerSendSpy).toHaveBeenCalledWith({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            ...request,
+            chainId: "0x1388",
+          },
+        ],
+      });
+    });
   });
 });

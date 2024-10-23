@@ -6,6 +6,11 @@ export interface NativeCurrencyData {
   decimals: number;
 }
 
+/**
+ * Request to add a new chain to the user's wallet.
+ *
+ * See [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085) for more details.
+ */
 export interface AddEthereumChainRequest {
   chainId: Numbers;
   blockExplorerUrls?: string[];
@@ -15,6 +20,11 @@ export interface AddEthereumChainRequest {
   rpcUrls?: string[];
 }
 
+/**
+ * Request to switch to a new chain and register it with the user’s wallet if it isn’t already recognized.
+ *
+ * See [EIP-2015](https://eips.ethereum.org/EIPS/eip-2015) for more details.
+ */
 export interface UpdateEthereumChainRequest {
   chainId: Numbers;
   blockExplorerUrl?: string;
@@ -23,10 +33,20 @@ export interface UpdateEthereumChainRequest {
   rpcUrls?: string[];
 }
 
+/**
+ * Request to switch the wallet’s currently active chain.
+ *
+ * See [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326) for more details.
+ */
 export interface SwitchEthereumChainRequest {
   chainId: Numbers;
 }
 
+/**
+ * Request to return a list of owned assets for the given address.
+ *
+ * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
+ */
 export interface GetOwnedAssetsRequest {
   /**
    * Ethereum address that owns the assets.
@@ -52,15 +72,20 @@ export interface GetOwnedAssetsRequest {
   };
 }
 
+/**
+ * A single asset owned by the wallet user.
+ *
+ * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
+ */
 export type OwnedAsset = {
   /**
    * Ethereum checksummed address of the asset.
    */
-  address: string;
+  address: Address;
   /**
    * Identifier for the chain on which the assets are deployed.
    */
-  chainId: number;
+  chainId: Numbers;
   /**
    * Asset interface ERC identifier, e.g., ERC20.
    * Optional - EIP-1820 could be used.
@@ -85,12 +110,17 @@ export type OwnedAsset = {
     /**
      * The number of tokens that the user owns, in the smallest token denomination.
      */
-    balance: number;
+    balance: Numbers;
     /**
      * The number of decimals implemented by the token. Optional.
      */
-    decimals?: number;
+    decimals?: Numbers;
   };
 };
 
+/**
+ * Response to a request to return a list of owned assets for the given address.
+ *
+ * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
+ */
 export type GetOwnedAssetsResult = OwnedAsset[];
