@@ -1,34 +1,54 @@
-web3-plugin-template
-===========
+# Web3.js Plugin for Wallet RPC methods
 
-This is a template for creating a repository for web3.js plugin.
+This Web3.js plugin adds support for the following wallet-related RPC methods:
 
-How to use
-------------
+- wallet_addEthereumChain (EIP-3085)
+- wallet_updateEthereumChain (EIP-2015)
+- wallet_switchEthereumChain (EIP-3326)
+- wallet_getOwnedAssets (EIP-2256)
+- wallet_watchAsset (EIP-747)
+- wallet_requestPermissions (EIP-2255)
+- wallet_getPermissions (EIP-2255)
 
-1. Create your project out of this template.
+## Installation
 
-    You can do so by pressing on `Use this template` on the above right corner and then select `Create new Repositor`. Please, use the convention `web3-plugin-<name>` for your repo name.
-2. Update the `name` and `description` fileds at your `package.json`.
+Use your preferred package manager. Ensure that `web3` is also installed and integrated into your project.
 
-    Chose a name like: `@<organization>/web3-plugin-<name>` (or the less better `web3-plugin-<name>`).
-3. Update the code inside `src` folder.
+```bash
+npm install web3-plugin-wallet-rpc
+```
 
-4. Modify and add tests inside `test` folder.
+```bash
+yarn add web3-plugin-wallet-rpc
+```
 
-5. Publish to the npm registry.
+```bash
+pnpm add web3-plugin-wallet-rpc
+```
 
-    You can publish with something like: `yarn build && npm publish --access public`.
+## Usage
 
-Contributing
-------------
+### Register plugin
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
+```typescript
+import { WalletRpcPlugin } from "web3-plugin-wallet-rpc";
+web3 = new Web3(/* provider here */);
+web3.registerPlugin(new WalletRpcPlugin());
+```
 
-Please make sure to update tests as appropriate.
+### Methods
 
-License
--------
+#### addEthereumChain
+
+```typescript
+await web3.walletRpc.addEthereumChain({ chainId: "0x1388" }); // chainId 5000 is Mantle Mainnet
+```
+
+## Contributing
+
+We welcome pull requests! For major changes, please open an issue first to discuss the proposed modifications.
+Also, ensure that you update tests as needed to reflect the changes.
+
+## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
