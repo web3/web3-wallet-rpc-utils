@@ -17,7 +17,7 @@
     "react-scripts": "5.0.1",
     "typescript": "5.3.x",
     "uuid": "^10.0.0",
-    "web3": "^4.13.0",
+    "web3": "^4.14.0",
     "web3-eth": "^4.9.0",
     "web3-plugin-wallet-rpc": "*"
   },

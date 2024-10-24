@@ -1,7 +1,7 @@
 {
   "name": "web3-plugin-wallet-rpc",
   "version": "1.0.0",
-  "description": "Add support for the wallet-related RPC methods",
+  "description": "Web3.js plugin to add support for wallet-related RPC methods",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "homepage": "https://github.com/web3/web3-wallet-rpc-utils#readme",
@@ -31,9 +31,9 @@
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "typescript": "5.3.x",
-    "web3": "^4.2.2"
+    "web3": "^4.14.0"
   },
   "peerDependencies": {
-    "web3": ">= 4.0.3"
+    "web3": ">= 4.14.0"
   }
 }

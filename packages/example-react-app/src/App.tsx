@@ -6,7 +6,7 @@ import { type IWeb3Context, Web3Context } from "./web3/Web3Context";
 
 import Accounts from "./Accounts";
 import ProviderButton from "./ProviderButton";
-import WalletRpcPluginTest from "./WalletRpcPluginTest";
+import WalletRpcPlugComponent from "./WalletRpcPlugComponent";
 
 function App() {
   const web3Context: IWeb3Context = useContext(Web3Context);
@@ -90,7 +90,7 @@ function App() {
             <Accounts></Accounts>
           </AccountProvider>
 
-          <WalletRpcPluginTest></WalletRpcPluginTest>
+          <WalletRpcPlugComponent></WalletRpcPlugComponent>
         </>
       )}
       <br />
