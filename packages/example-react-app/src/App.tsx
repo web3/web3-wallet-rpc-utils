@@ -42,7 +42,7 @@ function App() {
 
   return (
     <main>
-      <h1>Web3.js + React Minimal dApp Template</h1>
+      <h1>Web3.js Wallet RPC Methods Demonstration dApp</h1>
       <div>
         This is a sample project that demonstrates using web3-plugin-wallet-rpc.
       </div>
