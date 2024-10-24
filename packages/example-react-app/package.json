@@ -1,8 +1,8 @@
 {
-  "name": "example-react-app",
+  "name": "web3-plugin-wallet-rpc-example",
   "private": true,
   "version": "0.1.0",
-  "description": "Demonstration Web3.js + React dApp",
+  "description": "Web3.js wallet RPC plugin example dApp",
   "contributors": [
     "ChainSafe <info@chainsafe.io>"
   ],

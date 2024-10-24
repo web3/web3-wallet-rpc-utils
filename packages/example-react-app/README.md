@@ -1,10 +1,11 @@
-# Web3.js + React Demonstration dApp
+# Web3.js Wallet RPC Methods Demonstration dApp
 
-This project is a demonstration dApp built with [Web3.js](https://web3js.org/)
-and [React](https://react.dev/).
+This project is a demonstration dApp built with the
+[Web3.js](https://web3js.org/) plugin for `wallet_*` RPC methods (e.g.
+[wallet_addEthereumChain (EIP-3085)](https://eips.ethereum.org/EIPS/eip-3085)).
 
 - [Web3.js Docs](https://docs.web3js.org/)
-- [React Docs](https://react.dev/learn)
+- [Plugin Docs](../web3-plugin-wallet-rpc/README.md)
 
 This project was bootstrapped with
 [Create React App](https://github.com/facebook/create-react-app).
