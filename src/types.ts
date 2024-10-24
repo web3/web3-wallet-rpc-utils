@@ -34,15 +34,6 @@ export type UpdateEthereumChainRequest = {
 };
 
 /**
- * Request to switch the wallet’s currently active chain.
- *
- * See [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326) for more details.
- */
-export type SwitchEthereumChainRequest = {
-  chainId: Numbers;
-};
-
-/**
  * Request to return a list of owned assets for the given address.
  *
  * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
@@ -87,8 +78,7 @@ export type OwnedAsset = {
    */
   chainId: Numbers;
   /**
-   * Asset interface ERC identifier, e.g., ERC20.
-   * Optional - EIP-1820 could be used.
+   * The token interface identifier, e.g., ERC20
    */
   type?: string;
   /**
@@ -117,13 +107,6 @@ export type OwnedAsset = {
     decimals?: number;
   };
 };
-
-/**
- * Response to a request to return a list of owned assets for the given address.
- *
- * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
- */
-export type GetOwnedAssetsResult = OwnedAsset[];
 
 /**
  * Request to add a new asset to the user’s wallet.

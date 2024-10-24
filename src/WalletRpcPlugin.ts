@@ -1,9 +1,8 @@
-import { Web3PluginBase, utils, validator } from "web3";
+import { Numbers, Web3PluginBase, utils, validator } from "web3";
 import {
   AddEthereumChainRequest,
   GetOwnedAssetsRequest,
-  GetOwnedAssetsResult,
-  SwitchEthereumChainRequest,
+  OwnedAsset,
   UpdateEthereumChainRequest,
   WatchAssetRequest,
 } from "./types";
@@ -12,8 +11,8 @@ import { parseToGetOwnedAssetsResult } from "./utils";
 type WalletRpcApi = {
   wallet_addEthereumChain: (param: AddEthereumChainRequest) => void;
   wallet_updateEthereumChain: (param: UpdateEthereumChainRequest) => void;
-  wallet_switchEthereumChain: (param: SwitchEthereumChainRequest) => void;
-  wallet_getOwnedAssets: (param: GetOwnedAssetsRequest) => GetOwnedAssetsResult;
+  wallet_switchEthereumChain: (chainId: Numbers) => void;
+  wallet_getOwnedAssets: (param: GetOwnedAssetsRequest) => OwnedAsset[];
   wallet_watchAsset: (param: WatchAssetRequest) => boolean;
 };
 
@@ -85,18 +84,15 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    *
    * See [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326) for more details.
    *
-   * @param param - See {@link SwitchEthereumChainRequest}
+   * @param param - Chain ID of the chain to switch to
    * @returns a Promise that resolves if the request is successful
    */
-  public async switchEthereumChain(
-    param: SwitchEthereumChainRequest
-  ): Promise<void> {
+  public async switchEthereumChain(chainId: Numbers): Promise<void> {
     return this.requestManager.send({
       method: "wallet_switchEthereumChain",
       params: [
         {
-          ...param,
-          chainId: utils.toHex(param.chainId),
+          chainId: utils.toHex(chainId),
         },
       ],
     });
@@ -108,11 +104,11 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
    *
    * @param param - Details of the request for owned assets
-   * @returns a Promise that resolves to a list of owned assets, see {@link GetOwnedAssetsResult}
+   * @returns a Promise that resolves to a list of owned assets
    */
   public async getOwnedAssets(
     param: GetOwnedAssetsRequest
-  ): Promise<GetOwnedAssetsResult> {
+  ): Promise<OwnedAsset[]> {
     validator.validator.validate(["address"], [param.address]);
 
     const trueParam = { ...param };

@@ -7,6 +7,9 @@ This Web3.js plugin adds support for the following wallet-related RPC methods:
 - [wallet_switchEthereumChain (EIP-3326)](https://eips.ethereum.org/EIPS/eip-3326)
 - [wallet_getOwnedAssets (EIP-2256)](https://eips.ethereum.org/EIPS/eip-2256)
 - [wallet_watchAsset (EIP-747)](https://eips.ethereum.org/EIPS/eip-747)
+
+Not implemented yet:
+
 - [wallet_requestPermissions (EIP-2255)](https://eips.ethereum.org/EIPS/eip-2255)
 - [wallet_getPermissions (EIP-2255)](https://eips.ethereum.org/EIPS/eip-2255)
 

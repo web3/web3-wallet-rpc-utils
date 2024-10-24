@@ -14,7 +14,7 @@ describe("WalletRpcPlugin", () => {
     });
 
     it("should call the method with expected params", async () => {
-      await web3.walletRpc.switchEthereumChain({ chainId: 5000 });
+      await web3.walletRpc.switchEthereumChain(5000);
 
       expect(requestManagerSendSpy).toHaveBeenCalledWith({
         method: "wallet_switchEthereumChain",
@@ -23,9 +23,7 @@ describe("WalletRpcPlugin", () => {
     });
 
     it("should return correct result", async () => {
-      const result = await web3.walletRpc.switchEthereumChain({
-        chainId: 5000,
-      });
+      const result = await web3.walletRpc.switchEthereumChain(5000);
 
       expect(result).toBeUndefined();
     });

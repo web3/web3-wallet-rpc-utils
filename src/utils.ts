@@ -1,7 +1,5 @@
-import { GetOwnedAssetsResult } from "./types";
+import { OwnedAsset } from "./types";
 
-export function parseToGetOwnedAssetsResult(
-  result: unknown[]
-): GetOwnedAssetsResult {
-  return result as GetOwnedAssetsResult;
+export function parseToGetOwnedAssetsResult(result: unknown[]): OwnedAsset[] {
+  return result as OwnedAsset[];
 }
