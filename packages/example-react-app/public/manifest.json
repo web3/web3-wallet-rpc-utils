@@ -1,6 +1,6 @@
 {
-  "short_name": "Web3.js + React dApp",
-  "name": "Web3.js + React Demonstration dApp",
+  "short_name": "Example React App",
+  "name": "Example React App",
   "icons": [
     {
       "src": "favicon.ico",

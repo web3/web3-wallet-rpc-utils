@@ -1,4 +1,4 @@
-# Web3.js + React Demonstration dApp
+# Example React App
 
 This project is a demonstration dApp built with [Web3.js](https://web3js.org/)
 and [React](https://react.dev/).

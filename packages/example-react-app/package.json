@@ -2,7 +2,7 @@
   "name": "example-react-app",
   "private": true,
   "version": "0.1.0",
-  "description": "Demonstration Web3.js + React dApp",
+  "description": "Example app for manually testing web3-plugin-wallet-rpc with real wallets.",
   "contributors": [
     "ChainSafe <info@chainsafe.io>"
   ],
