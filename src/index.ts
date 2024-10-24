@@ -1,2 +1,2 @@
-export * from "./plugin";
+export * from "./WalletRpcPlugin";
 export * from "./types";

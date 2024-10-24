@@ -2,13 +2,16 @@
 
 This Web3.js plugin adds support for the following wallet-related RPC methods:
 
-- wallet_addEthereumChain (EIP-3085)
-- wallet_updateEthereumChain (EIP-2015)
-- wallet_switchEthereumChain (EIP-3326)
-- wallet_getOwnedAssets (EIP-2256)
-- wallet_watchAsset (EIP-747)
-- wallet_requestPermissions (EIP-2255)
-- wallet_getPermissions (EIP-2255)
+- [wallet_addEthereumChain (EIP-3085)](https://eips.ethereum.org/EIPS/eip-3085)
+- [wallet_updateEthereumChain (EIP-2015)](https://eips.ethereum.org/EIPS/eip-2015)
+- [wallet_switchEthereumChain (EIP-3326)](https://eips.ethereum.org/EIPS/eip-3326)
+- [wallet_getOwnedAssets (EIP-2256)](https://eips.ethereum.org/EIPS/eip-2256)
+- [wallet_watchAsset (EIP-747)](https://eips.ethereum.org/EIPS/eip-747)
+
+Not implemented yet:
+
+- [wallet_requestPermissions (EIP-2255)](https://eips.ethereum.org/EIPS/eip-2255)
+- [wallet_getPermissions (EIP-2255)](https://eips.ethereum.org/EIPS/eip-2255)
 
 ## Installation
 
@@ -31,8 +34,10 @@ pnpm add web3-plugin-wallet-rpc
 ### Register plugin
 
 ```typescript
+import { Web3 } from "web3";
 import { WalletRpcPlugin } from "web3-plugin-wallet-rpc";
-web3 = new Web3(/* provider here */);
+
+const web3 = new Web3("https://eth.llamarpc.com");
 web3.registerPlugin(new WalletRpcPlugin());
 ```
 
@@ -40,8 +45,71 @@ web3.registerPlugin(new WalletRpcPlugin());
 
 #### addEthereumChain
 
+Invokes the `wallet_addEthereumChain` method as defined in [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085).
+
 ```typescript
-await web3.walletRpc.addEthereumChain({ chainId: "0x1388" }); // chainId 5000 is Mantle Mainnet
+await web3.walletRpc.addEthereumChain({
+  chainId: 5000,
+  blockExplorerUrls: ["https://mantlescan.xyz"],
+  chainName: "Mantle",
+  iconUrls: ["https://icons.llamao.fi/icons/chains/rsz_mantle.jpg"],
+  nativeCurrency: {
+    name: "Mantle",
+    symbol: "MNT",
+    decimals: 18,
+  },
+  rpcUrls: ["https://rpc.mantle.xyz"],
+});
+```
+
+#### updateEthereumChain
+
+Invokes the `wallet_updateEthereumChain` method as defined in [EIP-2015](https://eips.ethereum.org/EIPS/eip-2015).
+
+```typescript
+await web3.walletRpc.updateEthereumChain({
+  chainId: 5000,
+  blockExplorerUrls: ["https://mantlescan.xyz"],
+  chainName: "Mantle",
+  nativeCurrency: {
+    name: "Mantle",
+    symbol: "MNT",
+    decimals: 18,
+  },
+  rpcUrls: ["https://rpc.mantle.xyz"],
+});
+```
+
+#### switchEthereumChain
+
+Invokes the `wallet_switchEthereumChain` method as defined in [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326).
+
+```typescript
+await web3.walletRpc.switchEthereumChain({ chainId: 5000 });
+```
+
+#### getOwnedAssets
+
+Invokes the `wallet_getOwnedAssets` method as defined in [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256).
+
+```typescript
+const ownedAssets = await web3.walletRpc.getOwnedAssets({
+  address: "0xa5653e88D9c352387deDdC79bcf99f0ada62e9c6",
+});
+```
+
+#### watchAsset
+
+Invokes the `wallet_watchAsset` method as defined in [EIP-747](https://eips.ethereum.org/EIPS/eip-747).
+
+```typescript
+await web3.walletRpc.watchAsset({
+  type: "ERC20",
+  options: {
+    address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    symbol: "USDC",
+  },
+});
 ```
 
 ## Contributing

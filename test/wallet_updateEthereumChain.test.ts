@@ -2,7 +2,7 @@ import { Web3 } from "web3";
 import { WalletRpcPlugin } from "../src";
 
 describe("WalletRpcPlugin", () => {
-  describe("wallet_addEthereumChain", () => {
+  describe("wallet_updateEthereumChain", () => {
     const web3 = new Web3("http://127.0.0.1:8545");
     web3.registerPlugin(new WalletRpcPlugin());
 
@@ -14,16 +14,18 @@ describe("WalletRpcPlugin", () => {
     });
 
     it("should call the method with expected params", async () => {
-      await web3.walletRpc.addEthereumChain({ chainId: 5000 });
+      await web3.walletRpc.updateEthereumChain({ chainId: 5000 });
 
       expect(requestManagerSendSpy).toHaveBeenCalledWith({
-        method: "wallet_addEthereumChain",
+        method: "wallet_updateEthereumChain",
         params: [{ chainId: "0x1388" }],
       });
     });
 
     it("should return correct result", async () => {
-      const result = await web3.walletRpc.addEthereumChain({ chainId: 5000 });
+      const result = await web3.walletRpc.updateEthereumChain({
+        chainId: 5000,
+      });
 
       expect(result).toBeUndefined();
     });
@@ -33,7 +35,6 @@ describe("WalletRpcPlugin", () => {
         chainId: 5000,
         blockExplorerUrls: ["https://mantlescan.xyz"],
         chainName: "Mantle",
-        iconUrls: ["https://icons.llamao.fi/icons/chains/rsz_mantle.jpg"],
         nativeCurrency: {
           name: "Mantle",
           symbol: "MNT",
@@ -42,10 +43,10 @@ describe("WalletRpcPlugin", () => {
         rpcUrls: ["https://rpc.mantle.xyz"],
       };
 
-      await web3.walletRpc.addEthereumChain(request);
+      await web3.walletRpc.updateEthereumChain(request);
 
       expect(requestManagerSendSpy).toHaveBeenCalledWith({
-        method: "wallet_addEthereumChain",
+        method: "wallet_updateEthereumChain",
         params: [
           {
             ...request,
