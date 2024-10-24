@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-
 import type { ProviderChainId, providers } from "web3";
 
 import { AccountProvider } from "./web3/AccountContext";
@@ -7,6 +6,7 @@ import { type IWeb3Context, Web3Context } from "./web3/Web3Context";
 
 import Accounts from "./Accounts";
 import ProviderButton from "./ProviderButton";
+import WalletRpcPlugComponent from "./WalletRpcPlugComponent";
 
 function App() {
   const web3Context: IWeb3Context = useContext(Web3Context);
@@ -89,6 +89,8 @@ function App() {
           <AccountProvider>
             <Accounts></Accounts>
           </AccountProvider>
+
+          <WalletRpcPlugComponent></WalletRpcPlugComponent>
         </>
       )}
       <br />

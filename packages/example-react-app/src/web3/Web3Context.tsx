@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { providers, Web3 } from "web3";
+import { WalletRpcPlugin } from "web3-plugin-wallet-rpc";
 import { useProviders } from "./useProviders";
 
 export interface IWeb3Context {
@@ -21,7 +22,7 @@ const defaultContext: IWeb3Context = {
   providers: [],
   currentProvider: undefined,
   setCurrentProvider: function (
-    provider: providers.EIP6963ProviderDetail,
+    provider: providers.EIP6963ProviderDetail
   ): void {
     this.web3.setProvider(provider.provider);
     this.currentProvider = provider;
@@ -36,7 +37,11 @@ export const Web3Context = createContext<IWeb3Context>(defaultContext);
  * @returns React component that provides a context for interacting with a shared, managed instance of Web3.js
  */
 export const Web3Provider = ({ children }: { children: ReactNode }) => {
-  const web3: Web3 = useMemo(() => new Web3(), []);
+  const web3: Web3 = useMemo(() => {
+    const web3 = new Web3();
+    web3.registerPlugin(new WalletRpcPlugin());
+    return web3;
+  }, []);
   const providers: providers.EIP6963ProviderDetail[] = useProviders();
 
   const [currentProvider, _setCurrentProvider] = useState<
@@ -49,7 +54,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("provider", provider.info.rdns);
       _setCurrentProvider(provider);
     },
-    [web3],
+    [web3]
   );
 
   // update provider with cached value from local storage on page load
@@ -66,7 +71,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     const targetProvider: providers.EIP6963ProviderDetail | undefined =
       providers.find(
         (provider: providers.EIP6963ProviderDetail) =>
-          provider.info.rdns === cachedProvider,
+          provider.info.rdns === cachedProvider
       );
 
     if (targetProvider !== undefined) {

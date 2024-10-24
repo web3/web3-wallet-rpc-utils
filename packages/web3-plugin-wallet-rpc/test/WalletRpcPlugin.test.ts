@@ -1,4 +1,5 @@
 import { core } from "web3";
+
 import { WalletRpcPlugin } from "../src";
 
 describe("WalletRpcPlugin", () => {

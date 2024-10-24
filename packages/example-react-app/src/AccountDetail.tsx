@@ -6,8 +6,6 @@ import {
   useState,
 } from "react";
 
-import type { NewHeadsSubscription } from "web3-eth";
-
 import { type IWeb3Context, Web3Context } from "./web3/Web3Context";
 
 function AccountDetail({ address }: { address: string }) {
@@ -27,7 +25,7 @@ function AccountDetail({ address }: { address: string }) {
 
     web3Context.web3.eth
       .subscribe("newBlockHeaders")
-      .then((newBlockSubscription: NewHeadsSubscription) => {
+      .then((newBlockSubscription) => {
         subscriptionId.current = newBlockSubscription.id;
         newBlockSubscription.on("data", () => {
           updateBalance();
@@ -50,7 +48,7 @@ function AccountDetail({ address }: { address: string }) {
   return (
     <>
       <div>{address}</div>
-      <div>Balance in ether: {`${balance}`}</div>
+      <div>Balance in native token: {`${balance}`}</div>
     </>
   );
 }
