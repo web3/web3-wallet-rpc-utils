@@ -1,0 +1,6 @@
+{
+  "eslint.workingDirectories": [
+    "packages/example-react-app",
+    "packages/web3-plugin-wallet-rpc"
+  ]
+}
