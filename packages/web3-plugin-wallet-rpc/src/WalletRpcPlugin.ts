@@ -5,6 +5,8 @@ import type {
   AddEthereumChainRequest,
   GetOwnedAssetsRequest,
   OwnedAsset,
+  Permission,
+  PermissionRequest,
   UpdateEthereumChainRequest,
   WatchAssetRequest,
 } from "./types";
@@ -16,6 +18,9 @@ type WalletRpcApi = {
   wallet_switchEthereumChain: (chainId: Numbers) => void;
   wallet_getOwnedAssets: (param: GetOwnedAssetsRequest) => OwnedAsset[];
   wallet_watchAsset: (param: WatchAssetRequest) => boolean;
+  wallet_requestPermissions: (param: PermissionRequest) => Permission[];
+  wallet_getPermissions: () => Permission[];
+  wallet_revokePermissions: (param: PermissionRequest) => void;
 };
 
 /**
@@ -44,8 +49,22 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    *
    * See [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085) for more details.
    *
-   * @param param - Details of the chain to add
-   * @returns a Promise that resolves if the request is successful
+   * @param param - Details of the chain to add.
+   * @returns A Promise that resolves if the request is successful.
+   *
+   * @example
+   * await web3.walletRpc.addEthereumChain({
+   *   chainId: 5000,
+   *   blockExplorerUrls: ["https://mantlescan.xyz"],
+   *   chainName: "Mantle",
+   *   iconUrls: ["https://icons.llamao.fi/icons/chains/rsz_mantle.jpg"],
+   *   nativeCurrency: {
+   *     name: "Mantle",
+   *     symbol: "MNT",
+   *     decimals: 18,
+   *   },
+   *   rpcUrls: ["https://rpc.mantle.xyz"],
+   * });
    */
   public async addEthereumChain(param: AddEthereumChainRequest): Promise<void> {
     return this.requestManager.send({
@@ -64,8 +83,9 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    *
    * See [EIP-2015](https://eips.ethereum.org/EIPS/eip-2015) for more details.
    *
-   * @param param - Details of the chain to switch to and possibly add
-   * @returns a Promise that resolves if the request is successful
+   * @param param - Details of the chain to switch to and possibly add.
+   * @returns A Promise that resolves if the request is successful.
+   * @experimental
    */
   public async updateEthereumChain(
     param: UpdateEthereumChainRequest,
@@ -82,12 +102,17 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
   }
 
   /**
-   * Switch the wallet’s currently active chain.
+   * Switch the wallet's currently active chain.
+   * If the specified chain does not exist in the wallet, an error will be thrown.
+   * To prevent errors, ensure the chain has been added first or handle the call within a try/catch block.
    *
    * See [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326) for more details.
    *
-   * @param param - Chain ID of the chain to switch to
-   * @returns a Promise that resolves if the request is successful
+   * @param chainId - The ID of the chain to switch to.
+   * @returns A Promise that resolves if the chain switch is successful.
+   *
+   * @example
+   * await web3.walletRpc.switchEthereumChain(5000);
    */
   public async switchEthereumChain(chainId: Numbers): Promise<void> {
     return this.requestManager.send({
@@ -105,8 +130,9 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    *
    * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
    *
-   * @param param - Details of the request for owned assets
-   * @returns a Promise that resolves to a list of owned assets
+   * @param param - Details of the request for owned assets.
+   * @returns A Promise that resolves to a list of owned assets.
+   * @experimental
    */
   public async getOwnedAssets(
     param: GetOwnedAssetsRequest,
@@ -131,8 +157,17 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    *
    * See [EIP-747](https://eips.ethereum.org/EIPS/eip-747) for more details.
    *
-   * @param param - Details of the asset to watch
-   * @returns a Promise that resolves to `true` if the request is successful
+   * @param param - Details of the asset to watch.
+   * @returns A Promise that resolves to `true` if the request is successful.
+   *
+   * @example
+   * await web3.walletRpc.watchAsset({
+   *   type: "ERC20",
+   *   options: {
+   *     address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+   *     symbol: "USDC",
+   *   },
+   * });
    */
   public async watchAsset(param: WatchAssetRequest): Promise<boolean> {
     return this.requestManager.send({
@@ -140,9 +175,65 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
       params: [param],
     });
   }
+
+  /**
+   * Request permissions for a dApp.
+   *
+   * See [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255) for more details.
+   *
+   * @param param - Details of the permission request.
+   * @returns A Promise that resolves to an array of granted permissions.
+   *
+   * @example
+   * const permissions = await web3.walletRpc.requestPermissions({
+   *   eth_accounts: {}
+   * });
+   */
+  public async requestPermissions(
+    param: PermissionRequest,
+  ): Promise<Permission[]> {
+    return this.requestManager.send({
+      method: "wallet_requestPermissions",
+      params: [param],
+    });
+  }
+
+  /**
+   * Retrieve the list of permissions granted to the dApp.
+   *
+   * See [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255) for more details.
+   *
+   * @returns A Promise that resolves to an array of granted permissions.
+   *
+   * @example
+   * const permissions = await web3.walletRpc.getPermissions();
+   */
+  public async getPermissions(): Promise<Permission[]> {
+    return this.requestManager.send({
+      method: "wallet_getPermissions",
+      params: [],
+    });
+  }
+
+  /**
+   * Revoke permissions granted to the dApp.
+   *
+   * @param param - Details of the permissions to revoke.
+   * @returns A Promise that resolves if the request is successful.
+   *
+   * @example
+   * await web3.walletRpc.revokePermissions({
+   *   eth_accounts: {}
+   * });
+   */
+  public async revokePermissions(param: PermissionRequest): Promise<void> {
+    return this.requestManager.send({
+      method: "wallet_revokePermissions",
+      params: [param],
+    });
+  }
 }
 
-// Module Augmentation
 declare module "web3" {
   interface Web3Context {
     walletRpc: WalletRpcPlugin;

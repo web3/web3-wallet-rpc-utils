@@ -3,15 +3,16 @@
 This Web3.js plugin adds support for the following wallet-related RPC methods:
 
 - [wallet_addEthereumChain (EIP-3085)](https://eips.ethereum.org/EIPS/eip-3085)
-- [wallet_updateEthereumChain (EIP-2015)](https://eips.ethereum.org/EIPS/eip-2015)
 - [wallet_switchEthereumChain (EIP-3326)](https://eips.ethereum.org/EIPS/eip-3326)
-- [wallet_getOwnedAssets (EIP-2256)](https://eips.ethereum.org/EIPS/eip-2256)
 - [wallet_watchAsset (EIP-747)](https://eips.ethereum.org/EIPS/eip-747)
-
-Not implemented yet:
-
 - [wallet_requestPermissions (EIP-2255)](https://eips.ethereum.org/EIPS/eip-2255)
 - [wallet_getPermissions (EIP-2255)](https://eips.ethereum.org/EIPS/eip-2255)
+- [wallet_revokePermissions](https://docs.metamask.io/wallet/reference/json-rpc-methods/wallet_revokepermissions/)
+
+Experimental - These methods require further investigation, as other libraries don’t implement them and wallets appear not to support them:
+
+- [wallet_updateEthereumChain (EIP-2015)](https://eips.ethereum.org/EIPS/eip-2015)
+- [wallet_getOwnedAssets (EIP-2256)](https://eips.ethereum.org/EIPS/eip-2256)
 
 ## Installation
 
@@ -45,7 +46,7 @@ web3.registerPlugin(new WalletRpcPlugin());
 
 #### addEthereumChain
 
-Invokes the `wallet_addEthereumChain` method as defined in [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085).
+Invokes the `wallet_addEthereumChain` method as defined in [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085#wallet_addethereumchain).
 
 ```typescript
 await web3.walletRpc.addEthereumChain({
@@ -61,6 +62,58 @@ await web3.walletRpc.addEthereumChain({
   rpcUrls: ["https://rpc.mantle.xyz"],
 });
 ```
+
+#### switchEthereumChain
+
+Invokes the `wallet_switchEthereumChain` method as defined in [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326#wallet_switchethereumchain).
+
+```typescript
+await web3.walletRpc.switchEthereumChain(5000);
+```
+
+#### watchAsset
+
+Invokes the `wallet_watchAsset` method as defined in [EIP-747](https://eips.ethereum.org/EIPS/eip-747#specification).
+
+```typescript
+await web3.walletRpc.watchAsset({
+  type: "ERC20",
+  options: {
+    address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    symbol: "USDC",
+  },
+});
+```
+
+#### requestPermissions
+
+Invokes the `wallet_requestPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255#specification).
+
+```typescript
+const permissions = await web3.walletRpc.requestPermissions({
+  eth_accounts: {},
+});
+```
+
+#### getPermissions
+
+Invokes the `wallet_getPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255#specification).
+
+```typescript
+const permissions = await web3.walletRpc.getPermissions();
+```
+
+#### revokePermissions
+
+Invokes the `wallet_revokePermissions` method as defined in [MetaMask docs](https://docs.metamask.io/wallet/reference/json-rpc-methods/wallet_revokepermissions/).
+
+```typescript
+const permissions = await web3.walletRpc.revokePermissions({
+  eth_accounts: {},
+});
+```
+
+### Experimental methods
 
 #### updateEthereumChain
 
@@ -80,14 +133,6 @@ await web3.walletRpc.updateEthereumChain({
 });
 ```
 
-#### switchEthereumChain
-
-Invokes the `wallet_switchEthereumChain` method as defined in [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326).
-
-```typescript
-await web3.walletRpc.switchEthereumChain({ chainId: 5000 });
-```
-
 #### getOwnedAssets
 
 Invokes the `wallet_getOwnedAssets` method as defined in [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256).
@@ -95,20 +140,6 @@ Invokes the `wallet_getOwnedAssets` method as defined in [EIP-2256](https://eips
 ```typescript
 const ownedAssets = await web3.walletRpc.getOwnedAssets({
   address: "0xa5653e88D9c352387deDdC79bcf99f0ada62e9c6",
-});
-```
-
-#### watchAsset
-
-Invokes the `wallet_watchAsset` method as defined in [EIP-747](https://eips.ethereum.org/EIPS/eip-747).
-
-```typescript
-await web3.walletRpc.watchAsset({
-  type: "ERC20",
-  options: {
-    address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-    symbol: "USDC",
-  },
 });
 ```
 
