@@ -9,7 +9,7 @@ This Web3.js plugin adds support for the following wallet-related RPC methods:
 - [wallet_getPermissions (EIP-2255)](https://eips.ethereum.org/EIPS/eip-2255)
 - [wallet_revokePermissions](https://docs.metamask.io/wallet/reference/json-rpc-methods/wallet_revokepermissions/)
 
-Experimental:
+Experimental - These methods require further investigation, as other libraries don’t implement them and wallets appear not to support them:
 
 - [wallet_updateEthereumChain (EIP-2015)](https://eips.ethereum.org/EIPS/eip-2015)
 - [wallet_getOwnedAssets (EIP-2256)](https://eips.ethereum.org/EIPS/eip-2256)
@@ -46,7 +46,7 @@ web3.registerPlugin(new WalletRpcPlugin());
 
 #### addEthereumChain
 
-Invokes the `wallet_addEthereumChain` method as defined in [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085).
+Invokes the `wallet_addEthereumChain` method as defined in [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085#wallet_addethereumchain).
 
 ```typescript
 await web3.walletRpc.addEthereumChain({
@@ -65,7 +65,7 @@ await web3.walletRpc.addEthereumChain({
 
 #### switchEthereumChain
 
-Invokes the `wallet_switchEthereumChain` method as defined in [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326).
+Invokes the `wallet_switchEthereumChain` method as defined in [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326#wallet_switchethereumchain).
 
 ```typescript
 await web3.walletRpc.switchEthereumChain(5000);
@@ -73,7 +73,7 @@ await web3.walletRpc.switchEthereumChain(5000);
 
 #### watchAsset
 
-Invokes the `wallet_watchAsset` method as defined in [EIP-747](https://eips.ethereum.org/EIPS/eip-747).
+Invokes the `wallet_watchAsset` method as defined in [EIP-747](https://eips.ethereum.org/EIPS/eip-747#specification).
 
 ```typescript
 await web3.walletRpc.watchAsset({
@@ -87,7 +87,7 @@ await web3.walletRpc.watchAsset({
 
 #### requestPermissions
 
-Invokes the `wallet_requestPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255).
+Invokes the `wallet_requestPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255#specification).
 
 ```typescript
 const permissions = await web3.walletRpc.requestPermissions({
@@ -97,7 +97,7 @@ const permissions = await web3.walletRpc.requestPermissions({
 
 #### getPermissions
 
-Invokes the `wallet_getPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255).
+Invokes the `wallet_getPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255#specification).
 
 ```typescript
 const permissions = await web3.walletRpc.getPermissions();
