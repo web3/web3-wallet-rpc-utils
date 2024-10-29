@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import type { ProviderChainId, providers } from 'web3';
 
+import { Accounts } from './components/Accounts';
+import { ProviderButton } from './components/ProviderButton';
 import { AccountProvider } from './web3/AccountContext';
 import { type IWeb3Context, Web3Context } from './web3/Web3Context';
-
-import Accounts from './Accounts';
-import ProviderButton from './ProviderButton';
-import WalletRpcPlugComponent from './WalletRpcPlugComponent';
+import { SwitchEthereumChain } from './wallet-components/SwitchEthereumChain';
+import { AddEthereumChain } from './wallet-components/AddEthereumChain';
+import { WatchAsset } from './wallet-components/WatchAsset';
+import { Permissions } from './wallet-components/Permissions';
 
 function App() {
   const web3Context: IWeb3Context = useContext(Web3Context);
@@ -74,14 +76,22 @@ function App() {
               })}
             </>
           ) : null}
+
           <h2>Network Details</h2>
           <div>Chain ID: {`${chainId}`}</div>
           <div>Network ID: {`${networkId}`}</div>
+
           <AccountProvider>
-            <Accounts></Accounts>
+            <Accounts />
           </AccountProvider>
 
-          <WalletRpcPlugComponent></WalletRpcPlugComponent>
+          <h2>Wallet RPC Methods</h2>
+          <div>
+            <AddEthereumChain />
+            <SwitchEthereumChain />
+            <WatchAsset />
+            <Permissions />
+          </div>
         </>
       )}
       <br />

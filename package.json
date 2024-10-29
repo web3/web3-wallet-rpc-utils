@@ -28,7 +28,7 @@
     "lint:plugin": "cd packages/web3-plugin-wallet-rpc && yarn lint",
     "lint:example": "cd packages/example-react-app && yarn lint",
     "format": "prettier --write .",
-    "start:example": "cd packages/example-react-app && yarn start"
+    "start:example": "yarn build && cd packages/example-react-app && yarn start"
   },
   "devDependencies": {
     "prettier": "^3.3.3"

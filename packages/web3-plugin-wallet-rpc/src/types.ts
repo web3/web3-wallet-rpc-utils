@@ -230,7 +230,7 @@ export type Caveat = {
   /**
    * Value associated with this restriction, as JSON. Its meaning is context-dependent based on the caveat type.
    */
-  value: any;
+  value: unknown;
 };
 
 /**

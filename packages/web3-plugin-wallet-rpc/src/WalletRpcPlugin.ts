@@ -18,7 +18,7 @@ type WalletRpcApi = {
   wallet_watchAsset: (param: WatchAssetRequest) => boolean;
   wallet_requestPermissions: (param: PermissionRequest) => Permission[];
   wallet_getPermissions: () => Permission[];
-  wallet_revokePermissions: (param: PermissionRequest) => void;
+  wallet_revokePermissions: (param: PermissionRequest) => null;
   // experimental
   wallet_getOwnedAssets: (param: GetOwnedAssetsRequest) => OwnedAsset[];
   wallet_updateEthereumChain: (param: UpdateEthereumChainRequest) => void;
@@ -222,7 +222,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    *   eth_accounts: {}
    * });
    */
-  public async revokePermissions(param: PermissionRequest): Promise<void> {
+  public async revokePermissions(param: PermissionRequest): Promise<null> {
     return this.requestManager.send({
       method: 'wallet_revokePermissions',
       params: [param],
