@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+
 import { Web3Context } from '../web3/Web3Context';
 
 export function RevokePermissions() {
@@ -12,7 +13,7 @@ export function RevokePermissions() {
       })
       .then((response) => {
         // eslint-disable-next-line no-console
-        console.log(`Successfully revoked permissions with response`, response);
+        console.log('Successfully revoked permissions with response', response);
       })
       .catch((e) => {
         // eslint-disable-next-line no-console

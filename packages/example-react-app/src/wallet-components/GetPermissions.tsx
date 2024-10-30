@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
-import { Permission } from 'web3-plugin-wallet-rpc';
+import type { Permission } from 'web3-plugin-wallet-rpc';
+
 import { Web3Context } from '../web3/Web3Context';
 
 export function GetPermissions() {
@@ -12,7 +13,7 @@ export function GetPermissions() {
       .getPermissions()
       .then((response) => {
         // eslint-disable-next-line no-console
-        console.log(`Successfully got permissions with response`, response);
+        console.log('Successfully got permissions with response', response);
 
         setPermissions(response);
       })
