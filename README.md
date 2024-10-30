@@ -14,6 +14,8 @@ Experimental - These methods require further investigation, as other libraries d
 - [wallet_updateEthereumChain (EIP-2015)](https://eips.ethereum.org/EIPS/eip-2015)
 - [wallet_getOwnedAssets (EIP-2256)](https://eips.ethereum.org/EIPS/eip-2256)
 
+Keep reading for more information, or refer to the comprehensive [API documentation](https://web3.github.io/web3-wallet-rpc-utils/).
+
 ## Installation
 
 Use your preferred package manager. Ensure that `web3` is also installed and integrated into your project.
