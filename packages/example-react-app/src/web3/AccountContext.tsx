@@ -1,12 +1,6 @@
-import {
-  createContext,
-  type ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
 
-import { type IWeb3Context, Web3Context } from "./Web3Context";
+import { type IWeb3Context, Web3Context } from './Web3Context';
 
 export interface IAccountContext {
   accounts: string[];
@@ -41,9 +35,8 @@ export const AccountProvider = ({ children }: { children: ReactNode }) => {
     }
 
     web3Context.web3.eth.getAccounts().then(setAccounts);
-    provider.provider.on("accountsChanged", setAccounts);
-    return () =>
-      provider.provider.removeListener("accountsChanged", setAccounts);
+    provider.provider.on('accountsChanged', setAccounts);
+    return () => provider.provider.removeListener('accountsChanged', setAccounts);
   }, [web3Context.currentProvider, web3Context.web3.eth]);
 
   // update selected account
@@ -66,8 +59,6 @@ export const AccountProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AccountContext.Provider value={accountContext}>
-      {children}
-    </AccountContext.Provider>
+    <AccountContext.Provider value={accountContext}>{children}</AccountContext.Provider>
   );
 };

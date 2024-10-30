@@ -5,10 +5,10 @@ import {
   useEffect,
   useMemo,
   useState,
-} from "react";
-import { providers, Web3 } from "web3";
-import { WalletRpcPlugin } from "web3-plugin-wallet-rpc";
-import { useProviders } from "./useProviders";
+} from 'react';
+import { providers, Web3 } from 'web3';
+import { WalletRpcPlugin } from 'web3-plugin-wallet-rpc';
+import { useProviders } from './useProviders';
 
 export interface IWeb3Context {
   web3: Web3;
@@ -21,9 +21,7 @@ const defaultContext: IWeb3Context = {
   web3: new Web3(),
   providers: [],
   currentProvider: undefined,
-  setCurrentProvider: function (
-    provider: providers.EIP6963ProviderDetail
-  ): void {
+  setCurrentProvider: function (provider: providers.EIP6963ProviderDetail): void {
     this.web3.setProvider(provider.provider);
     this.currentProvider = provider;
   },
@@ -51,10 +49,10 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   const setCurrentProvider = useCallback(
     (provider: providers.EIP6963ProviderDetail) => {
       web3.setProvider(provider.provider);
-      localStorage.setItem("provider", provider.info.rdns);
+      localStorage.setItem('provider', provider.info.rdns);
       _setCurrentProvider(provider);
     },
-    [web3]
+    [web3],
   );
 
   // update provider with cached value from local storage on page load
@@ -63,16 +61,15 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    const cachedProvider: string | null = localStorage.getItem("provider");
+    const cachedProvider: string | null = localStorage.getItem('provider');
     if (cachedProvider === null) {
       return;
     }
 
-    const targetProvider: providers.EIP6963ProviderDetail | undefined =
-      providers.find(
-        (provider: providers.EIP6963ProviderDetail) =>
-          provider.info.rdns === cachedProvider
-      );
+    const targetProvider: providers.EIP6963ProviderDetail | undefined = providers.find(
+      (provider: providers.EIP6963ProviderDetail) =>
+        provider.info.rdns === cachedProvider,
+    );
 
     if (targetProvider !== undefined) {
       setCurrentProvider(targetProvider);
@@ -86,7 +83,5 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     setCurrentProvider,
   };
 
-  return (
-    <Web3Context.Provider value={web3Context}>{children}</Web3Context.Provider>
-  );
+  return <Web3Context.Provider value={web3Context}>{children}</Web3Context.Provider>;
 };
