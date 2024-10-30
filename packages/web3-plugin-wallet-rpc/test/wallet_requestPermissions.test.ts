@@ -1,10 +1,10 @@
-import { Web3 } from 'web3';
+import { Web3Context } from 'web3-core';
 
 import { WalletRpcPlugin } from '../src';
 
 describe('WalletRpcPlugin', () => {
   describe('wallet_requestPermissions', () => {
-    const web3 = new Web3('http://127.0.0.1:8545');
+    const web3 = new Web3Context('http://127.0.0.1:8545');
     web3.registerPlugin(new WalletRpcPlugin());
 
     const requestManagerSendSpy = jest.fn();
