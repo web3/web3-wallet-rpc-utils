@@ -242,12 +242,12 @@ export type Permission = {
   /**
    * Unique identifier for the permission.
    */
-  id: string;
+  id?: string;
 
   /**
    * URI of the dApp granted this permission.
    */
-  invoker: string;
+  invoker?: string;
 
   /**
    * Method permitted by this permission (e.g., "eth_accounts").
@@ -257,7 +257,7 @@ export type Permission = {
   /**
    * List of restrictions applied to this permission.
    */
-  caveats: Caveat[];
+  caveats?: Caveat[];
 
   /**
    * Date of the permission request, in Unix timestamp format.
