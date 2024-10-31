@@ -1,18 +1,13 @@
 import { Web3PluginBase } from 'web3-core';
 import type { Numbers } from 'web3-types';
 import { toHex } from 'web3-utils';
-import { validator } from 'web3-validator';
 
 import type {
   AddEthereumChainRequest,
-  GetOwnedAssetsRequest,
-  OwnedAsset,
   Permission,
   PermissionRequest,
-  UpdateEthereumChainRequest,
   WatchAssetRequest,
 } from './types';
-import { parseToGetOwnedAssetsResult } from './utils';
 
 type WalletRpcApi = {
   wallet_addEthereumChain: (param: AddEthereumChainRequest) => null;
@@ -21,9 +16,6 @@ type WalletRpcApi = {
   wallet_requestPermissions: (param: PermissionRequest) => Permission[];
   wallet_getPermissions: () => Permission[];
   wallet_revokePermissions: (param: PermissionRequest) => null;
-  // experimental
-  wallet_getOwnedAssets: (param: GetOwnedAssetsRequest) => OwnedAsset[];
-  wallet_updateEthereumChain: (param: UpdateEthereumChainRequest) => void;
 };
 
 /**
@@ -82,27 +74,6 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
   }
 
   /**
-   * Switch to a new chain and register it with the user’s wallet if it isn’t already recognized.
-   *
-   * See [EIP-2015](https://eips.ethereum.org/EIPS/eip-2015) for more details.
-   *
-   * @param param - Details of the chain to switch to and possibly add.
-   * @returns A Promise that resolves if the request is successful.
-   * @experimental
-   */
-  public async updateEthereumChain(param: UpdateEthereumChainRequest): Promise<void> {
-    return this.requestManager.send({
-      method: 'wallet_updateEthereumChain',
-      params: [
-        {
-          ...param,
-          chainId: toHex(param.chainId),
-        },
-      ],
-    });
-  }
-
-  /**
    * Switch the wallet's currently active chain.
    *
    * If the specified chain does not exist in the wallet, an error will be thrown.
@@ -125,31 +96,6 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
         },
       ],
     });
-  }
-
-  /**
-   * Return a list of owned assets for the given address.
-   *
-   * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
-   *
-   * @param param - Details of the request for owned assets.
-   * @returns A Promise that resolves to a list of owned assets.
-   * @experimental
-   */
-  public async getOwnedAssets(param: GetOwnedAssetsRequest): Promise<OwnedAsset[]> {
-    validator.validate(['address'], [param.address]);
-
-    const trueParam = { ...param };
-    if (trueParam.options?.chainId) {
-      trueParam.options.chainId = toHex(trueParam.options.chainId);
-    }
-
-    const result = await this.requestManager.send({
-      method: 'wallet_getOwnedAssets',
-      params: [trueParam],
-    });
-
-    return parseToGetOwnedAssetsResult(result);
   }
 
   /**
