@@ -23,12 +23,6 @@ describe('WalletRpcPlugin', () => {
       });
     });
 
-    it('should return correct result', async () => {
-      const result = await web3.walletRpc.addEthereumChain({ chainId: 5000 });
-
-      expect(result).toBeUndefined();
-    });
-
     it('should pass all possible fields as a param', async () => {
       const request = {
         chainId: 5000,

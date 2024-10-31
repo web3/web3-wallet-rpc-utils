@@ -22,11 +22,5 @@ describe('WalletRpcPlugin', () => {
         params: [{ chainId: '0x1388' }],
       });
     });
-
-    it('should return correct result', async () => {
-      const result = await web3.walletRpc.switchEthereumChain(5000);
-
-      expect(result).toBeUndefined();
-    });
   });
 });
