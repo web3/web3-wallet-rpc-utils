@@ -37,9 +37,10 @@ export function SwitchEthereumChain() {
   return (
     <div>
       <h4>Switch Chain (must be known by the wallet)</h4>
-      <SwitchChainButton chainId={137} />
       <SwitchChainButton chainId={1} />
+      <SwitchChainButton chainId={137} />
       <SwitchChainButton chainId={5000} />
+      <SwitchChainButton chainId={534352} />
     </div>
   );
 }

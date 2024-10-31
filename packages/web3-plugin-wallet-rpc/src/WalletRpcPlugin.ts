@@ -1,5 +1,7 @@
-import type { Numbers } from 'web3';
-import { Web3PluginBase, utils, validator } from 'web3';
+import { Web3PluginBase } from 'web3-core';
+import type { Numbers } from 'web3-types';
+import { toHex } from 'web3-utils';
+import { validator } from 'web3-validator';
 
 import type {
   AddEthereumChainRequest,
@@ -73,7 +75,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
       params: [
         {
           ...param,
-          chainId: utils.toHex(param.chainId),
+          chainId: toHex(param.chainId),
         },
       ],
     });
@@ -94,7 +96,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
       params: [
         {
           ...param,
-          chainId: utils.toHex(param.chainId),
+          chainId: toHex(param.chainId),
         },
       ],
     });
@@ -119,7 +121,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
       method: 'wallet_switchEthereumChain',
       params: [
         {
-          chainId: utils.toHex(chainId),
+          chainId: toHex(chainId),
         },
       ],
     });
@@ -135,11 +137,11 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
    * @experimental
    */
   public async getOwnedAssets(param: GetOwnedAssetsRequest): Promise<OwnedAsset[]> {
-    validator.validator.validate(['address'], [param.address]);
+    validator.validate(['address'], [param.address]);
 
     const trueParam = { ...param };
     if (trueParam.options?.chainId) {
-      trueParam.options.chainId = utils.toHex(trueParam.options.chainId);
+      trueParam.options.chainId = toHex(trueParam.options.chainId);
     }
 
     const result = await this.requestManager.send({
