@@ -11,7 +11,7 @@
   "scripts": {
     "lint": "eslint '{src,test}/**/*.ts'",
     "build": "tsc --project tsconfig.build.json",
-    "build:docs": "npx typedoc ./src/index.ts",
+    "build:docs": "npx typedoc ./src/index.ts --readme ../../README.md",
     "test": "jest --config=./test/jest.config.js"
   },
   "contributors": [
