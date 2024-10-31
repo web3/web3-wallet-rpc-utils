@@ -118,7 +118,7 @@ export class WalletRpcPlugin extends Web3PluginBase<WalletRpcApi> {
   public async watchAsset(param: WatchAssetRequest): Promise<boolean> {
     return this.requestManager.send({
       method: 'wallet_watchAsset',
-      params: [param],
+      params: param,
     });
   }
 

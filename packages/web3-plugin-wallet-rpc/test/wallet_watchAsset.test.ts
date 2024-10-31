@@ -27,7 +27,7 @@ describe('WalletRpcPlugin', () => {
 
       expect(requestManagerSendSpy).toHaveBeenCalledWith({
         method: 'wallet_watchAsset',
-        params: [request],
+        params: request,
       });
     });
   });

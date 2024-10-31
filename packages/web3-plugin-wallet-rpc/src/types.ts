@@ -70,7 +70,7 @@ export type WatchAssetRequest = {
    */
   options: {
     /**
-     * Ethereum address of the token contract.
+     * Address of the token contract.
      */
     address: Address;
 
@@ -88,6 +88,11 @@ export type WatchAssetRequest = {
      * URL or base64-encoded image of the token.
      */
     image?: string;
+
+    /**
+     * The unique identifier of the NFT (required for ERC-721 and ERC-1155 tokens). Supported by MetaMask.
+     */
+    tokenId?: string;
   };
 };
 

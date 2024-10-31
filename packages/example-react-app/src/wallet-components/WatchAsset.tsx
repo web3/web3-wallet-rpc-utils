@@ -8,7 +8,14 @@ const tokens: Record<string, WatchAssetRequest> = {
     type: 'ERC20',
     options: {
       address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-      symbol: 'USDC',
+    },
+  },
+  usdc_full: {
+    type: 'ERC20',
+    options: {
+      address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+      symbol: 'USDC', // This is required by some wallets, while optional for others and in the spec
+      decimals: 18, // This is required by some wallets, while optional for others and in the spec
     },
   },
   scroll: {
@@ -35,10 +42,7 @@ function WatchAssetButton({
       .watchAsset(asset)
       .then((response) => {
         // eslint-disable-next-line no-console
-        console.log(
-          `Successfully added ${asset.options.symbol ?? ''} with response`,
-          response,
-        );
+        console.log('Successfully resolved watchAsset request with response', response);
       })
       .catch((e) => {
         // eslint-disable-next-line no-console
@@ -64,7 +68,8 @@ export function WatchAsset() {
   return (
     <div>
       <h4>Add token to wallet&apos;s list</h4>
-      <WatchAssetButton asset={tokens.usdc} />
+      <WatchAssetButton asset={tokens.usdc} description="USDC (Only address)" />
+      <WatchAssetButton asset={tokens.usdc_full} description="(Full spec)" />
       <WatchAssetButton asset={tokens.scroll} description="(Only on Scroll Network)" />
     </div>
   );
