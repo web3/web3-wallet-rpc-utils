@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import type { EIP6963ProviderDetail, ProviderChainId } from 'web3';
+import type { EIP6963ProviderDetail } from 'web3';
 
 import { Accounts } from './components/Accounts';
+import { ChainId } from './components/ChainId';
 import { ProviderButton } from './components/ProviderButton';
 import { AddEthereumChain } from './wallet-components/AddEthereumChain';
 import { Permissions } from './wallet-components/Permissions';
@@ -12,60 +13,11 @@ import { type IWeb3Context, Web3Context } from './web3/Web3Context';
 
 function App() {
   const web3Context: IWeb3Context = useContext(Web3Context);
-
   const [hasProviders, setHasProviders] = useState<boolean>(false);
+
   useEffect(() => {
     setHasProviders(web3Context.providers.length > 0);
   }, [web3Context.providers.length]);
-
-  const [chainId, setChainId] = useState<bigint | undefined>(undefined);
-  const [networkId, setNetworkId] = useState<bigint | undefined>(undefined);
-  useEffect(() => {
-    if (web3Context.currentProvider === undefined) {
-      return;
-    }
-
-    const { provider } = web3Context.currentProvider;
-
-    function updateChainId(newId: bigint) {
-      setChainId(newId);
-    }
-
-    function updateProviderIds(newId: ProviderChainId) {
-      setChainId(BigInt(newId));
-
-      web3Context.web3.eth.net
-        .getId()
-        .then(setNetworkId)
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.error(error);
-        });
-    }
-
-    web3Context.web3.eth
-      .getChainId()
-      .then(updateChainId)
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-      });
-
-    web3Context.web3.eth.net
-      .getId()
-      .then(setNetworkId)
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-      });
-
-    provider.on('chainChanged', updateProviderIds);
-
-    // eslint-disable-next-line consistent-return
-    return () => {
-      provider.removeListener('chainChanged', updateProviderIds);
-    };
-  }, [web3Context.currentProvider, web3Context.web3.eth]);
 
   return (
     <main>
@@ -87,6 +39,17 @@ function App() {
 
       {hasProviders && web3Context.currentProvider && (
         <>
+          <h2>Current Provider</h2>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img
+              src={web3Context.currentProvider.info.icon}
+              alt={web3Context.currentProvider.info.name}
+              width="35"
+            />
+            <span>{web3Context.currentProvider.info.name}</span>
+          </div>
+          <ChainId />
+
           {web3Context.providers.length > 1 && (
             <>
               <h2>Switch Provider</h2>
@@ -96,17 +59,13 @@ function App() {
                 }
 
                 return (
-                  <div key={provider.info.uuid}>
+                  <div key={provider.info.uuid} style={{ display: 'inline-block' }}>
                     <ProviderButton provider={provider} />
                   </div>
                 );
               })}
             </>
           )}
-
-          <h2>Network Details</h2>
-          {chainId && <div>Chain ID: {`${chainId}`}</div>}
-          {networkId && <div>Network ID: {`${networkId}`}</div>}
 
           <AccountProvider>
             <Accounts />
@@ -121,12 +80,6 @@ function App() {
           </div>
         </>
       )}
-
-      <br />
-      <i>
-        This project was bootstrapped with{' '}
-        <a href="https://github.com/facebook/create-react-app">Create React App</a>.
-      </i>
     </main>
   );
 }

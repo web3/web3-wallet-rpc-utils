@@ -4,6 +4,18 @@ import type { AddEthereumChainRequest } from 'web3-plugin-wallet-rpc';
 import { Web3Context } from '../web3/Web3Context';
 
 const chains: Record<string, AddEthereumChainRequest> = {
+  polygon: {
+    chainId: 137,
+    blockExplorerUrls: ['https://polygonscan.com'],
+    chainName: 'Polygon',
+    iconUrls: ['https://icons.llamao.fi/icons/chains/rsz_polygon.jpg'],
+    nativeCurrency: {
+      name: 'Polygon',
+      symbol: 'POL',
+      decimals: 18,
+    },
+    rpcUrls: ['https://polygon.llamarpc.com'],
+  },
   mantle: {
     chainId: 5000,
     blockExplorerUrls: ['https://mantlescan.xyz'],
@@ -68,6 +80,7 @@ export function AddEthereumChain() {
   return (
     <div>
       <h4>Add EVM Chain</h4>
+      <AddChainButton chainDetails={chains.polygon} />
       <AddChainButton chainDetails={chains.mantle} />
       <AddChainButton chainDetails={chains.scroll} />
     </div>

@@ -11,9 +11,22 @@ const tokens: Record<string, WatchAssetRequest> = {
       symbol: 'USDC',
     },
   },
+  scroll: {
+    type: 'ERC20',
+    options: {
+      address: '0xd29687c813D741E2F938F4aC377128810E217b1b',
+      symbol: 'SCR',
+    },
+  },
 };
 
-function WatchAssetButton({ asset }: { asset: WatchAssetRequest }) {
+function WatchAssetButton({
+  asset,
+  description,
+}: {
+  asset: WatchAssetRequest;
+  description?: string;
+}) {
   const { web3 } = useContext(Web3Context);
   const [error, setError] = useState<Error | undefined>(undefined);
 
@@ -40,7 +53,7 @@ function WatchAssetButton({ asset }: { asset: WatchAssetRequest }) {
   return (
     <>
       <button type="button" onClick={handleClick}>
-        Add {asset.options.symbol}
+        Add {asset.options.symbol} {description}
       </button>
       {error && <div>{error.message}</div>}
     </>
@@ -52,6 +65,7 @@ export function WatchAsset() {
     <div>
       <h4>Add token to wallet&apos;s list</h4>
       <WatchAssetButton asset={tokens.usdc} />
+      <WatchAssetButton asset={tokens.scroll} description="(Only on Scroll Network)" />
     </div>
   );
 }

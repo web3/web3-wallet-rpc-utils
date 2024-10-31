@@ -36,10 +36,11 @@ export function AccountProvider({ children }: { children: ReactNode }) {
 
   // update list of accounts
   useEffect(() => {
-    const provider = web3Context.currentProvider;
-    if (provider === undefined) {
+    if (web3Context.currentProvider === undefined) {
       return;
     }
+
+    const { provider } = web3Context.currentProvider;
 
     web3Context.web3.eth
       .getAccounts()
@@ -49,11 +50,17 @@ export function AccountProvider({ children }: { children: ReactNode }) {
         console.error(error);
       });
 
-    provider.provider.on('accountsChanged', setAccounts);
+    provider.on('accountsChanged', setAccounts);
 
     // eslint-disable-next-line consistent-return
     return () => {
-      provider.provider.removeListener('accountsChanged', setAccounts);
+      // not all wallet providers implement removeListener
+      try {
+        provider.removeListener('accountsChanged', setAccounts);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+      }
     };
   }, [web3Context.currentProvider, web3Context.web3.eth]);
 
