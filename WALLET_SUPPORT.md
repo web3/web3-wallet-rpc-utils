@@ -2,14 +2,14 @@
 
 ## Browser extension wallets
 
-| Method                     | Metamask | Coinbase Wallet | Trust Wallet | Enkrypt | Rainbow | Rabby Wallet | Exodus | Phantom |
-| -------------------------- | -------- | --------------- | ------------ | ------- | ------- | ------------ | ------ | ------- |
-| wallet_addEthereumChain    | ✓        | ✓ (\*)          | ✓            | ✓       | ✓ (\*)  | ✓            | x (\*) | x (\*)  |
-| wallet_switchEthereumChain | ✓        | ✓ (\*)          | ✓            | ✓       | ✓       | ✓            | ✓ (\*) | ✓ (\*)  |
-| wallet_watchAsset          | ✓ (\*)   | ✓               | ✓ (\*)       | x       | ✓ (\*)  | ✓ (\*)       | x      | ✓ (\*)  |
-| wallet_requestPermissions  | ✓ (\*)   | x               | ✓            | x (\*)  | x       | ✓            | ✓      | ✓       |
-| wallet_getPermissions      | ✓        | x               | ✓            | x       | x       | ✓            | ✓      | ✓       |
-| wallet_revokePermissions   | ✓        | x               | ✓            | x       | x       | ✓            | ✓ (\*) | x       |
+| Method                     | Metamask | Coinbase Wallet | Trust Wallet | Enkrypt | Rainbow | Rabby Wallet | Exodus | Phantom | Uniswap Extension |
+| -------------------------- | -------- | --------------- | ------------ | ------- | ------- | ------------ | ------ | ------- | ----------------- |
+| wallet_addEthereumChain    | ✓        | ✓ (\*)          | ✓            | ✓       | ✓ (\*)  | ✓            | x (\*) | x (\*)  | x                 |
+| wallet_switchEthereumChain | ✓        | ✓ (\*)          | ✓            | ✓       | ✓       | ✓            | ✓ (\*) | ✓ (\*)  | ✓ (\*)            |
+| wallet_watchAsset          | ✓ (\*)   | ✓               | ✓ (\*)       | x       | ✓ (\*)  | ✓ (\*)       | x      | ✓ (\*)  | x                 |
+| wallet_requestPermissions  | ✓ (\*)   | x               | ✓            | x (\*)  | x       | ✓            | ✓      | ✓       | ✓                 |
+| wallet_getPermissions      | ✓        | x               | ✓            | x       | x       | ✓            | ✓      | ✓       | ✓                 |
+| wallet_revokePermissions   | ✓        | x               | ✓            | x       | x       | ✓            | ✓ (\*) | x       | ✓                 |
 
 - (✓) Supported
 - (x) Not supported
@@ -95,6 +95,10 @@ WatchAsset.tsx:45 Ir: Missing or invalid parameters.
     at http://localhost:3000/static/js/bundle.js:80100:67
     at new Promise (<anonymous>)
 ```
+
+### Uniswap Extension
+
+- `wallet_switchEthereumChain`: Only works with chains natively supported by the wallet; new chains cannot be added.
 
 ## Mobile wallets using WalletConnect
 
