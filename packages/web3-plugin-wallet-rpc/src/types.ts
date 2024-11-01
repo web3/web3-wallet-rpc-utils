@@ -55,124 +55,6 @@ export type AddEthereumChainRequest = {
 };
 
 /**
- * Request to switch to a specified blockchain network. Registers the network if it’s not recognized by the wallet.
- *
- * See [EIP-2015](https://eips.ethereum.org/EIPS/eip-2015) for more details.
- */
-export type UpdateEthereumChainRequest = {
-  /**
-   * Unique identifier for the chain, as per EIP-155.
-   */
-  chainId: Numbers;
-
-  /**
-   * URL for the primary block explorer of this chain.
-   */
-  blockExplorerUrl?: string;
-
-  /**
-   * The name of the chain.
-   */
-  chainName?: string;
-
-  /**
-   * Details of the native currency used on this chain.
-   */
-  nativeCurrency?: NativeCurrencyData;
-
-  /**
-   * URLs of the RPC nodes for this chain.
-   */
-  rpcUrls?: string[];
-};
-
-/**
- * Request to retrieve a list of assets owned by a specified Ethereum address.
- *
- * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
- */
-export type GetOwnedAssetsRequest = {
-  /**
-   * Ethereum address of the asset owner.
-   */
-  address: Address;
-
-  options?: {
-    /**
-     * Chain ID as per EIP-155, specifying the blockchain.
-     */
-    chainId?: Numbers;
-
-    /**
-     * Maximum number of assets to return.
-     */
-    limit?: number;
-
-    /**
-     * List of asset types (e.g., ['ERC20', 'ERC721']) to filter the response.
-     */
-    types?: string[];
-
-    /**
-     * Description of the purpose of this request, provided by the dApp.
-     */
-    justification?: string;
-  };
-};
-
-/**
- * Representation of a single asset owned by the user’s wallet.
- *
- * See [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256) for more details.
- */
-export type OwnedAsset = {
-  /**
-   * Checksummed Ethereum address of the asset contract.
-   */
-  address: Address;
-
-  /**
-   * Identifier for the chain where this asset is deployed.
-   */
-  chainId: Numbers;
-
-  /**
-   * Identifier of the asset type (e.g., "ERC20").
-   */
-  type?: string;
-
-  /**
-   * Asset-specific metadata.
-   */
-  options: {
-    /**
-     * Name of the token. Optional if the token contract doesn’t implement it.
-     */
-    name?: string;
-
-    /**
-     * Symbol of the token. Optional if the token contract doesn’t implement it.
-     */
-    symbol?: string;
-
-    /**
-     * Token icon in base64 format or URL. Optional.
-     */
-    icon?: string;
-
-    /**
-     * Number of tokens owned, in the smallest denomination.
-     */
-    balance: Numbers;
-
-    /**
-     * Number of decimal places supported by the token. Optional.
-     */
-    decimals?: number;
-  };
-};
-
-/**
  * Request to add a specified asset to the user’s wallet interface.
  *
  * See [EIP-747](https://eips.ethereum.org/EIPS/eip-747) for more details.
@@ -188,7 +70,7 @@ export type WatchAssetRequest = {
    */
   options: {
     /**
-     * Ethereum address of the token contract.
+     * Address of the token contract.
      */
     address: Address;
 
@@ -206,6 +88,11 @@ export type WatchAssetRequest = {
      * URL or base64-encoded image of the token.
      */
     image?: string;
+
+    /**
+     * The unique identifier of the NFT (required for ERC-721 and ERC-1155 tokens). Supported by MetaMask.
+     */
+    tokenId?: string;
   };
 };
 

@@ -46,7 +46,9 @@ web3.registerPlugin(new WalletRpcPlugin());
 
 ### Methods
 
-#### addEthereumChain
+Click on the method name for detailed documentation.
+
+#### [addEthereumChain](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#addEthereumChain)
 
 Invokes the `wallet_addEthereumChain` method as defined in [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085#wallet_addethereumchain).
 
@@ -65,7 +67,7 @@ await web3.walletRpc.addEthereumChain({
 });
 ```
 
-#### switchEthereumChain
+#### [switchEthereumChain](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#switchEthereumChain)
 
 Invokes the `wallet_switchEthereumChain` method as defined in [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326#wallet_switchethereumchain).
 
@@ -73,7 +75,7 @@ Invokes the `wallet_switchEthereumChain` method as defined in [EIP-3326](https:/
 await web3.walletRpc.switchEthereumChain(5000);
 ```
 
-#### watchAsset
+#### [watchAsset](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#watchAsset)
 
 Invokes the `wallet_watchAsset` method as defined in [EIP-747](https://eips.ethereum.org/EIPS/eip-747#specification).
 
@@ -87,7 +89,7 @@ await web3.walletRpc.watchAsset({
 });
 ```
 
-#### requestPermissions
+#### [requestPermissions](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#requestPermissions)
 
 Invokes the `wallet_requestPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255#specification).
 
@@ -97,7 +99,7 @@ const permissions = await web3.walletRpc.requestPermissions({
 });
 ```
 
-#### getPermissions
+#### [getPermissions](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#getPermissions)
 
 Invokes the `wallet_getPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255#specification).
 
@@ -105,43 +107,13 @@ Invokes the `wallet_getPermissions` method as defined in [EIP-2255](https://eips
 const permissions = await web3.walletRpc.getPermissions();
 ```
 
-#### revokePermissions
+#### [revokePermissions](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#revokePermissions)
 
 Invokes the `wallet_revokePermissions` method as defined in [MetaMask docs](https://docs.metamask.io/wallet/reference/json-rpc-methods/wallet_revokepermissions/).
 
 ```typescript
 const permissions = await web3.walletRpc.revokePermissions({
   eth_accounts: {},
-});
-```
-
-### Experimental methods
-
-#### updateEthereumChain
-
-Invokes the `wallet_updateEthereumChain` method as defined in [EIP-2015](https://eips.ethereum.org/EIPS/eip-2015).
-
-```typescript
-await web3.walletRpc.updateEthereumChain({
-  chainId: 5000,
-  blockExplorerUrls: ['https://mantlescan.xyz'],
-  chainName: 'Mantle',
-  nativeCurrency: {
-    name: 'Mantle',
-    symbol: 'MNT',
-    decimals: 18,
-  },
-  rpcUrls: ['https://rpc.mantle.xyz'],
-});
-```
-
-#### getOwnedAssets
-
-Invokes the `wallet_getOwnedAssets` method as defined in [EIP-2256](https://eips.ethereum.org/EIPS/eip-2256).
-
-```typescript
-const ownedAssets = await web3.walletRpc.getOwnedAssets({
-  address: '0xa5653e88D9c352387deDdC79bcf99f0ada62e9c6',
 });
 ```
 

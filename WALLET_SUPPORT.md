@@ -2,14 +2,14 @@
 
 ## Browser extension wallets
 
-| Method                     | Metamask | Coinbase Wallet | Trust Wallet | Enkrypt | Rainbow | Rabby Wallet | Exodus | Phantom |
-| -------------------------- | -------- | --------------- | ------------ | ------- | ------- | ------------ | ------ | ------- |
-| wallet_addEthereumChain    | ✓        | ✓ (\*)          | ✓            | ✓       | ✓ (\*)  | ✓            | x (\*) | x (\*)  |
-| wallet_switchEthereumChain | ✓        | ✓ (\*)          | ✓            | ✓       | ✓       | ✓            | ✓ (\*) | ✓ (\*)  |
-| wallet_watchAsset          | ✓ (\*)   | ✓               | ✓ (\*)       | x       | ✓ (\*)  | ✓ (\*)       | x      | ✓ (\*)  |
-| wallet_requestPermissions  | ✓ (\*)   | x               | ✓            | x (\*)  | x       | ✓            | ✓      | ✓       |
-| wallet_getPermissions      | ✓        | x               | ✓            | x       | x       | ✓            | ✓      | ✓       |
-| wallet_revokePermissions   | ✓        | x               | ✓            | x       | x       | ✓            | ✓ (\*) | x       |
+| Method                     | Metamask | Coinbase Wallet | Trust Wallet | Enkrypt | Rainbow | Rabby Wallet | Exodus | Phantom | Uniswap Extension |
+| -------------------------- | -------- | --------------- | ------------ | ------- | ------- | ------------ | ------ | ------- | ----------------- |
+| wallet_addEthereumChain    | ✓        | ✓ (\*)          | ✓            | ✓       | ✓ (\*)  | ✓            | x (\*) | x (\*)  | x                 |
+| wallet_switchEthereumChain | ✓        | ✓ (\*)          | ✓            | ✓       | ✓       | ✓            | ✓ (\*) | ✓ (\*)  | ✓ (\*)            |
+| wallet_watchAsset          | ✓        | ✓               | ✓ (\*)       | ✓       | ✓       | ✓            | x (\*) | x       | x                 |
+| wallet_requestPermissions  | ✓ (\*)   | x               | ✓            | x (\*)  | x       | ✓            | ✓      | ✓       | ✓                 |
+| wallet_getPermissions      | ✓        | x               | ✓            | x       | x       | ✓            | ✓      | ✓       | ✓                 |
+| wallet_revokePermissions   | ✓        | x               | ✓            | x       | x       | ✓            | ✓ (\*) | x       | ✓                 |
 
 - (✓) Supported
 - (x) Not supported
@@ -29,14 +29,6 @@
 #### Metamask
 
 - `wallet_requestPermissions` and `wallet_getPermissions`: Returns a full response containing all permission fields according to the specification.
-- `wallet_watchAsset`: There’s an issue with Web3RequestManager, causing an error with the wallet's response:
-
-```
-ResponseError: Returned error: Cannot destructure property 'tokenId' of 'n' as it is undefined.
-at Web3RequestManager.<anonymous> (web3_request_manager.ts:178:1)
-at Generator.next (<anonymous>)
-at fulfilled (web3_request_manager.ts:1:1)`
-```
 
 #### Coinbase Wallet
 
@@ -46,21 +38,7 @@ at fulfilled (web3_request_manager.ts:1:1)`
 ### Trust Wallet
 
 - General Behavior is very similarly to MetaMask.
-- `wallet_watchAsset`: Produces an error due to an issue with destructuring the wallet’s response:
-
-```
-WatchAsset.tsx:45 TypeError: Cannot destructure property 'address' of 'A' as it is undefined.
-    at wi.request (inpage.js:247:201226)
-    at inpage.js:247:206755
-    at yu.handleStaticRequests (inpage.js:247:207086)
-    at yu.request (inpage.js:247:206709)
-    at web3_request_manager.ts:271:1
-    at new Promise (<anonymous>)
-    at Web3RequestManager.<anonymous> (web3_request_manager.ts:250:1)
-    at Generator.next (<anonymous>)
-    at web3_request_manager.ts:1:1
-    at new Promise (<anonymous>)
-```
+- `wallet_watchAsset`: Requires `symbol` and `decimals` fields, which are optional according to the specification and in other wallets.
 
 ### Enkrypt
 
@@ -69,32 +47,25 @@ WatchAsset.tsx:45 TypeError: Cannot destructure property 'address' of 'A' as it 
 ### Rainbow
 
 - `wallet_addEthereumChain`: Adds a chain but does not switch to it; fails if the network is already known to the wallet.
-- `wallet_watchAsset`: Fails with the error `"Internal error: Cannot read properties of undefined (reading 'address')"`.
 
 ### Rabby Wallet
 
 - `wallet_requestPermissions` and `wallet_getPermissions`: Returns a response object containing only `parentCapability`, but functions as expected.
-- `wallet_watchAsset`: Opens a modal with an “Add Custom Token” header, but it remains stuck and does not complete the action.
 
 ### Exodus
 
 - `wallet_addEthereumChain` and `wallet_switchEthereumChain`: Only work with chains natively supported by the wallet; new chains cannot be added.
+- `wallet_watchAsset`: The promise resolves successfully with a value of `true`, but no asset is actually added.
 - `wallet_requestPermissions` and `wallet_getPermissions`: Returns a response object containing only `parentCapability`, but functions as expected.
 - `wallet_revokePermissions`: Revokes permissions but also triggers an error: `DisconnectedError: The provider is disconnected from all chains`. This appears to be an issue with the wallet itself.
 
 ### Phantom
 
 - `wallet_addEthereumChain` and `wallet_switchEthereumChain`: Only work with chains natively supported by the wallet; new chains cannot be added.
-- `wallet_watchAsset`: Fails with an error:
 
-```
-WatchAsset.tsx:45 Ir: Missing or invalid parameters.
-    at r.request (chrome-extension://bfnaelmomeimhlpmgjnjophhpkkoljpa/evmAsk.js:7:5094)
-    at Web3RequestManager.<anonymous> (http://localhost:3000/static/js/bundle.js:80237:25)
-    at Generator.next (<anonymous>)
-    at http://localhost:3000/static/js/bundle.js:80100:67
-    at new Promise (<anonymous>)
-```
+### Uniswap Extension
+
+- `wallet_switchEthereumChain`: Only works with chains natively supported by the wallet; new chains cannot be added.
 
 ## Mobile wallets using WalletConnect
 
