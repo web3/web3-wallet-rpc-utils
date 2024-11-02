@@ -9,7 +9,7 @@ This Web3.js plugin adds support for the following wallet-related RPC methods:
 - [wallet_getPermissions (EIP-2255)](https://eips.ethereum.org/EIPS/eip-2255)
 - [wallet_revokePermissions](https://docs.metamask.io/wallet/reference/json-rpc-methods/wallet_revokepermissions/)
 
-Keep reading for more information, or refer to the comprehensive [API documentation](https://web3.github.io/web3-wallet-rpc-utils/).
+Keep reading for more information, or refer to the comprehensive [API documentation](https://web3.github.io/web3-plugin-wallet-rpc/).
 
 ## Installation
 
