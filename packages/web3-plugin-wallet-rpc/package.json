@@ -1,12 +1,12 @@
 {
   "name": "web3-plugin-wallet-rpc",
-  "version": "1.0.0",
+  "version": "0.1.0-rc.1",
   "description": "Web3.js plugin to add support for wallet-related RPC methods",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "homepage": "https://github.com/web3/web3-wallet-rpc-utils#readme",
+  "homepage": "https://github.com/web3/web3-plugin-wallet-rpc#readme",
   "bugs": {
-    "url": "https://github.com/web3/web3-wallet-rpc-utils/issues"
+    "url": "https://github.com/web3/web3-plugin-wallet-rpc/issues"
   },
   "scripts": {
     "lint": "eslint '{src,test}/**/*.ts'",
@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:web3/web3-wallet-rpc-utils.git"
+    "url": "git+ssh://git@github.com/web3/web3-plugin-wallet-rpc.git"
   },
   "devDependencies": {
     "@chainsafe/eslint-config": "^2.0.0",

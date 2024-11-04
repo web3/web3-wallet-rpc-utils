@@ -43,7 +43,7 @@ web3.registerPlugin(new WalletRpcPlugin());
 
 Click on the method name for detailed documentation.
 
-#### [addEthereumChain](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#addEthereumChain)
+#### [addEthereumChain](https://web3.github.io/web3-plugin-wallet-rpc/classes/WalletRpcPlugin.html#addEthereumChain)
 
 Invokes the `wallet_addEthereumChain` method as defined in [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085#wallet_addethereumchain).
 
@@ -62,7 +62,7 @@ await web3.walletRpc.addEthereumChain({
 });
 ```
 
-#### [switchEthereumChain](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#switchEthereumChain)
+#### [switchEthereumChain](https://web3.github.io/web3-plugin-wallet-rpc/classes/WalletRpcPlugin.html#switchEthereumChain)
 
 Invokes the `wallet_switchEthereumChain` method as defined in [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326#wallet_switchethereumchain).
 
@@ -70,7 +70,7 @@ Invokes the `wallet_switchEthereumChain` method as defined in [EIP-3326](https:/
 await web3.walletRpc.switchEthereumChain(5000);
 ```
 
-#### [watchAsset](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#watchAsset)
+#### [watchAsset](https://web3.github.io/web3-plugin-wallet-rpc/classes/WalletRpcPlugin.html#watchAsset)
 
 Invokes the `wallet_watchAsset` method as defined in [EIP-747](https://eips.ethereum.org/EIPS/eip-747#specification).
 
@@ -84,7 +84,7 @@ await web3.walletRpc.watchAsset({
 });
 ```
 
-#### [requestPermissions](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#requestPermissions)
+#### [requestPermissions](https://web3.github.io/web3-plugin-wallet-rpc/classes/WalletRpcPlugin.html#requestPermissions)
 
 Invokes the `wallet_requestPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255#specification).
 
@@ -94,7 +94,7 @@ const permissions = await web3.walletRpc.requestPermissions({
 });
 ```
 
-#### [getPermissions](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#getPermissions)
+#### [getPermissions](https://web3.github.io/web3-plugin-wallet-rpc/classes/WalletRpcPlugin.html#getPermissions)
 
 Invokes the `wallet_getPermissions` method as defined in [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255#specification).
 
@@ -102,7 +102,7 @@ Invokes the `wallet_getPermissions` method as defined in [EIP-2255](https://eips
 const permissions = await web3.walletRpc.getPermissions();
 ```
 
-#### [revokePermissions](https://web3.github.io/web3-wallet-rpc-utils/classes/WalletRpcPlugin.html#revokePermissions)
+#### [revokePermissions](https://web3.github.io/web3-plugin-wallet-rpc/classes/WalletRpcPlugin.html#revokePermissions)
 
 Invokes the `wallet_revokePermissions` method as defined in [MetaMask docs](https://docs.metamask.io/wallet/reference/json-rpc-methods/wallet_revokepermissions/).
 
@@ -114,7 +114,7 @@ const permissions = await web3.walletRpc.revokePermissions({
 
 ## Contributing
 
-We welcome pull requests! For major changes, please [open an issue](https://github.com/web3/web3-wallet-rpc-utils) first to discuss the proposed modifications.
+We welcome pull requests! For major changes, please [open an issue](https://github.com/web3/web3-plugin-wallet-rpc) first to discuss the proposed modifications.
 Also, ensure that you update tests as needed to reflect the changes.
 
 ## License
