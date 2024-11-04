@@ -60,7 +60,10 @@ git push origin --tags
 ### 10. Publish on npm
 
 ```bash
+cd packages/web3-plugin-wallet-rpc
+
 npm login
+npm publish --dry-run # check what will be published
 npm publish
 npm logout
 ```

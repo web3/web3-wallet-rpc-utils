@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:web3/web3-plugin-wallet-rpc.git"
+    "url": "git+ssh://git@github.com/web3/web3-plugin-wallet-rpc.git"
   },
   "devDependencies": {
     "@chainsafe/eslint-config": "^2.0.0",

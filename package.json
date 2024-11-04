@@ -13,7 +13,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:web3/web3-plugin-wallet-rpc.git"
+    "url": "git+ssh://git@github.com/web3/web3-plugin-wallet-rpc.git"
   },
   "workspaces": [
     "packages/example-react-app",
