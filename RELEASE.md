@@ -11,7 +11,7 @@ git checkout -b release/bumped-version
 Ensure all dependencies are installed:
 
 ```bash
-npm i
+yarn
 ```
 
 ### 3. Bump Version Number
@@ -22,7 +22,7 @@ npm i
 ### 4. Build the Project
 
 ```bash
-npm run build
+yarn build
 ```
 
 ### 5. Update the Changelog

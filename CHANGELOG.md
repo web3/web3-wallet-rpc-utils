@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -->
 
-## [Unreleased]
+## [0.1.0-rc.1]
 
 ### Added
 
@@ -46,3 +46,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `wallet_requestPermissions`
   - `wallet_getPermissions`
   - `wallet_revokePermissions`
+
+## [Unreleased]
