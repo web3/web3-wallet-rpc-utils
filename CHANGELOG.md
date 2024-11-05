@@ -47,4 +47,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `wallet_getPermissions`
   - `wallet_revokePermissions`
 
+## [0.1.0]
+
+### Added
+
+- **Initial Release**: This version includes support for the following wallet RPC methods:
+  - `wallet_addEthereumChain`
+  - `wallet_switchEthereumChain`
+  - `wallet_watchAsset`
+  - `wallet_requestPermissions`
+  - `wallet_getPermissions`
+  - `wallet_revokePermissions`
+
 ## [Unreleased]

@@ -1,6 +1,6 @@
 {
   "name": "web3-plugin-wallet-rpc",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0",
   "description": "Web3.js plugin to add support for wallet-related RPC methods",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
