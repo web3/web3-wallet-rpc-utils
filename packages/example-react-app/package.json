@@ -12,7 +12,7 @@
     "react-dom": "^18.3.1",
     "uuid": "^10.0.0",
     "web3": "^4.14.0",
-    "web3-plugin-wallet-rpc": "0.1.0-rc.1"
+    "web3-plugin-wallet-rpc": "*"
   },
   "devDependencies": {
     "@chainsafe/eslint-config": "^2.0.0",
